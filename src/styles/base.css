@@ -1,0 +1,154 @@
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+  min-width: 320px;
+  background: var(--bg);
+  color: var(--ink);
+  font-family: var(--font-main);
+  font-size: 15px;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  transition: background-color 0.4s ease, color 0.4s ease;
+}
+
+button,
+input,
+textarea,
+select {
+  font: inherit;
+}
+
+button {
+  -webkit-tap-highlight-color: transparent;
+}
+
+a {
+  color: inherit;
+}
+
+.sb-mark-text,
+.sb-label,
+.sb-name-en,
+.contact-key,
+.chip,
+.stack-group-title,
+.pc-index,
+.pc-category,
+.pc-year,
+.pc-tech-chip,
+.pc-cta-text,
+.pl-label,
+.pl-count,
+.pl-foot-text,
+.dp-index,
+.dp-category,
+.dp-year,
+.dp-label,
+.dp-tech-chip,
+.dp-h-num,
+.dp-btn,
+.dp-nav-btn,
+.dp-close,
+.code-card-label,
+.code-card-lang,
+.copy-btn,
+.theme-toggle-label,
+.sb-foot,
+.dp-footer,
+kbd,
+pre,
+code {
+  font-family: var(--font-mono);
+}
+
+.app-root {
+  display: grid;
+  grid-template-columns: minmax(340px, 38%) 1fr;
+  min-height: 100vh;
+  max-width: 1640px;
+  margin: 0 auto;
+  transition: grid-template-columns 0.45s cubic-bezier(0.22, 0.61, 0.36, 1);
+}
+
+.app-root.is-collapsed {
+  grid-template-columns: 56px 1fr;
+}
+
+.main-col {
+  min-width: 0;
+  padding: 56px 64px 100px;
+}
+
+@keyframes reveal-in {
+  from {
+    opacity: 0;
+    transform: translateY(14px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.reveal {
+  opacity: 0;
+  transform: translateY(14px);
+}
+
+.reveal.is-in {
+  animation: reveal-in 0.55s cubic-bezier(0.22, 0.61, 0.36, 1) forwards;
+}
+
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--line);
+  border: 2px solid var(--bg);
+  border-radius: 999px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--ink-faint);
+}
+
+@media (max-width: 980px) {
+  .app-root,
+  .app-root.is-collapsed {
+    grid-template-columns: 1fr;
+  }
+
+  .main-col {
+    padding: 44px 28px 80px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    scroll-behavior: auto !important;
+    transition-duration: 0.01ms !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+  }
+
+  .reveal,
+  .reveal.is-in {
+    opacity: 1;
+    transform: none;
+    animation: none;
+  }
+}

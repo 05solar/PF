@@ -1,0 +1,56 @@
+@font-face {
+  font-family: 'ChosunIlboMyungjo';
+  src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_one@1.0/Chosunilbo_myungjo.woff') format('woff');
+  font-weight: normal;
+  font-display: swap;
+}
+
+:root {
+  --color-accent-source: #2f6044;
+  --font-main: 'ChosunIlboMyungjo', Georgia, serif;
+  --font-mono: 'Consolas', 'D2Coding', ui-monospace, SFMono-Regular, Menlo, monospace;
+}
+
+:root[data-theme='light'] {
+  --bg: #f9f8f6;
+  --bg-elev: #ffffff;
+  --bg-card: #ffffff;
+  --ink: #1a1a1a;
+  --ink-soft: #2a2a2a;
+  --ink-mute: #686761;
+  --ink-faint: #9c9a92;
+  --line: #e6e3dd;
+  --line-soft: #efeee9;
+  --chip-bg: #f1eee8;
+  --chip-ink: #1a1a1a;
+  --accent: var(--color-accent-source);
+  --accent-soft: color-mix(in srgb, var(--accent) 16%, transparent);
+  --accent-ink: #ffffff;
+  --code-bg: #14130f;
+  --code-ink: #eae7e0;
+  --code-line: #2a2926;
+  --shadow-md: 0 16px 40px -16px rgba(20, 20, 20, 0.18), 0 2px 6px rgba(20, 20, 20, 0.04);
+  --shadow-lg: 0 30px 70px -20px rgba(20, 20, 20, 0.35);
+}
+
+:root[data-theme='dark'] {
+  --bg: #131311;
+  --bg-elev: #1b1b19;
+  --bg-card: #1b1b19;
+  --ink: #f2efe8;
+  --ink-soft: #e0dcd3;
+  --ink-mute: #a19c91;
+  --ink-faint: #716d65;
+  --line: #2c2a26;
+  --line-soft: #232220;
+  --chip-bg: #232220;
+  --chip-ink: #f2efe8;
+  --accent: color-mix(in srgb, var(--color-accent-source) 68%, white);
+  --accent-soft: color-mix(in srgb, var(--color-accent-source) 28%, transparent);
+  --accent-ink: #131311;
+  --code-bg: #0c0c0a;
+  --code-ink: #e6e2d9;
+  --code-line: #1f1e1b;
+  --shadow-md: 0 16px 40px -16px rgba(0, 0, 0, 0.6), 0 2px 6px rgba(0, 0, 0, 0.3);
+  --shadow-lg: 0 30px 70px -20px rgba(0, 0, 0, 0.7);
+}
