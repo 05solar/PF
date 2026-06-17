@@ -60,6 +60,25 @@ export function resolveAssetUrl(src: string, base: string): string {
   }
 }
 
+// README 본문에서 첫 번째 이미지 URL을 뽑아 카드 커버로 씁니다. (shields 등 배지는 건너뜀)
+export function firstReadmeImage(md: string, base = ''): string | null {
+  const text = String(md || '');
+  const found: { idx: number; src: string }[] = [];
+  let m: RegExpExecArray | null;
+  const mdRe = /!\[[^\]]*\]\(\s*([^)\s]+)[^)]*\)/g;
+  while ((m = mdRe.exec(text))) found.push({ idx: m.index, src: m[1] });
+  const htmlRe = /<img\b[^>]*\bsrc\s*=\s*["']([^"']+)["'][^>]*>/gi;
+  while ((m = htmlRe.exec(text))) found.push({ idx: m.index, src: m[1] });
+  if (!found.length) return null;
+  found.sort((a, b) => a.idx - b.idx);
+  const isBadge = (s: string) =>
+    /shields\.io|img\.shields|\bbadge\b|flat-square|circleci|codecov|coveralls|travis|\/workflows\/|actions\/workflow|badgen|forthebadge/i.test(
+      s,
+    );
+  const pick = found.find((f) => !isBadge(f.src)) || found[0];
+  return resolveAssetUrl(pick.src, base);
+}
+
 export function renderInline(input: string, base = ''): ReactNode[] {
   const text = String(input);
   // 순서 중요: 링크된 이미지 → 이미지 → 코드 → 굵게 → 링크 → 기울임

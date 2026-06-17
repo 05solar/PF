@@ -37,40 +37,6 @@ export const fmtUpdated = (iso: string | null): string => {
 export const normalizeUrl = (url: string): string =>
   url.startsWith('http') ? url : `https://${url}`;
 
-// 저장소에 커밋된 이미지 파일 중 카드 대표 이미지로 쓸 한 장을 고릅니다.
-export type TreeFile = { path: string; size: number };
-
-const IMG_EXT = /\.(png|jpe?g|gif|webp|svg)$/i;
-
-export function selectCoverPath(files: TreeFile[]): string | null {
-  // favicon, vite 기본 로고는 대표 이미지에서 제외합니다.
-  const usable = files.filter(
-    (f) => IMG_EXT.test(f.path) && !/(^|\/)favicon|(^|\/)vite\.svg$/i.test(f.path),
-  );
-  if (!usable.length) return null;
-  const score = (f: TreeFile): number => {
-    const p = f.path.toLowerCase();
-    let s = f.size || 0;
-    // 스크린샷/프리뷰/문서 폴더 이미지는 크게 우대
-    if (
-      /(screenshot|preview|demo|banner|cover|hero|thumbnail|og[-_]?image|\/docs?\/|screenshots?\/)/.test(p)
-    ) {
-      s += 5_000_000;
-    }
-    // 아이콘/로고/심볼류는 감점
-    if (/(icon|logo|symbol|sprite|emoji|badge)/.test(p)) s -= 3_000_000;
-    if (/\.svg$/.test(p)) s -= 1_000_000;
-    return s;
-  };
-  return [...usable].sort((a, b) => score(b) - score(a))[0].path;
-}
-
-// raw.githubusercontent.com 절대 URL (기본 브랜치 = HEAD)
-export function rawUrl(login: string, name: string, path: string): string {
-  const enc = path.split('/').map(encodeURIComponent).join('/');
-  return `https://raw.githubusercontent.com/${login}/${name}/HEAD/${enc}`;
-}
-
 // GitHub README API가 돌려주는 base64 content를 UTF-8 문자열로 디코딩합니다.
 export const decodeBase64 = (content: string): string => {
   try {

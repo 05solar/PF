@@ -8,11 +8,10 @@ import { Contact } from './components/Contact';
 import { Footer } from './components/Footer';
 import { useGithub } from './hooks/useGithub';
 import { useReadmes } from './hooks/useReadmes';
-import { useRepoImages } from './hooks/useRepoImages';
 import { useReveal } from './hooks/useReveal';
 import { siteConfig } from './data/site';
 import { buildWeeks, fmtUpdated, langColor, normalizeUrl } from './lib/github';
-import { readmePreview } from './lib/markdown';
+import { firstReadmeImage, readmePreview } from './lib/markdown';
 import { detectStack } from './lib/stack';
 import type { GithubRepo, LangStat, RepoView } from './types';
 
@@ -57,10 +56,6 @@ function App() {
       })
       .slice(0, count);
   }, [ordered, readmes, count]);
-  const displayNames = useMemo(() => displayRepos.map((r) => r.name), [displayRepos]);
-
-  // 보여줄 저장소에서 대표 이미지(커밋된 스크린샷 등)를 찾아옵니다.
-  const repoImages = useRepoImages(login, displayNames, reloadKey);
 
   // 데이터가 도착하면 새로 등장한 영역까지 다시 관찰합니다.
   useReveal(`${!!user}-${repos.length}-${!!contrib}`);
@@ -84,7 +79,8 @@ function App() {
         url: r.html_url,
         readmeText: text,
         readmeBase: entry?.baseUrl || '',
-        image: repoImages[r.name]?.url ?? null,
+        // 커버 이미지는 README 안의 첫 이미지에서만 가져옵니다.
+        image: firstReadmeImage(text, entry?.baseUrl || ''),
         preview:
           readmePreview(text) ||
           r.description ||
@@ -178,7 +174,6 @@ function App() {
     contribError,
     readmes,
     displayRepos,
-    repoImages,
     poolNames,
     login,
   ]);

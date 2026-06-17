@@ -12,9 +12,9 @@ export const siteConfig: SiteConfig = {
   // 보여줄 대표 저장소 개수 (3 ~ 12)
   projectCount: 6,
   // 항상 맨 앞에 고정 노출할 저장소 (fork여도 포함)
-  pinnedRepos: ['GMG'],
+  pinnedRepos: ['GMG', 'JBNU-lab3-MCP', 'JBNU-lab2-RAG', 'JBNU-lab1-chatbot'],
   // 프로젝트 카드에서 제외할 저장소
-  excludedRepos: ['my-letter-site', 'PF'],
+  excludedRepos: ['my-letter-site', 'PF', 'p2', 'portfolio'],
 };
 
 // 기술 스택 카드. 실제 사용하는 도구로 자유롭게 수정하세요.
