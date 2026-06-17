@@ -32,6 +32,11 @@ export function RepoCard({ repo }: RepoCardProps) {
     >
       <div className="repo-accent" style={{ background: repo.langColor }} />
       <div className="repo-body">
+        {repo.image && (
+          <div className="repo-cover">
+            <img src={repo.image} alt={`${repo.name} 미리보기`} loading="lazy" />
+          </div>
+        )}
         <div className="repo-top">
           <a
             className="repo-name"

@@ -8,6 +8,7 @@ import { Contact } from './components/Contact';
 import { Footer } from './components/Footer';
 import { useGithub } from './hooks/useGithub';
 import { useReadmes } from './hooks/useReadmes';
+import { useRepoImages } from './hooks/useRepoImages';
 import { useReveal } from './hooks/useReveal';
 import { siteConfig } from './data/site';
 import { buildWeeks, fmtUpdated, langColor, normalizeUrl } from './lib/github';
@@ -43,6 +44,23 @@ function App() {
   const poolNames = useMemo(() => ordered.slice(0, count + 6).map((r) => r.name), [ordered, count]);
   const readmes = useReadmes(login, poolNames, reloadKey);
 
+  // 실제로 보여줄 저장소: 고정 저장소는 README 없어도, 그 외는 README 있는 것만.
+  const displayRepos = useMemo(() => {
+    const pinnedSet = new Set(siteConfig.pinnedRepos);
+    return ordered
+      .filter((r) => {
+        const status = readmes[r.name]?.status;
+        return pinnedSet.has(r.name)
+          ? status === 'done' || status === 'missing'
+          : status === 'done';
+      })
+      .slice(0, count);
+  }, [ordered, readmes, count]);
+  const displayNames = useMemo(() => displayRepos.map((r) => r.name), [displayRepos]);
+
+  // 보여줄 저장소에서 대표 이미지(커밋된 스크린샷 등)를 찾아옵니다.
+  const repoImages = useRepoImages(login, displayNames, reloadKey);
+
   // 데이터가 도착하면 새로 등장한 영역까지 다시 관찰합니다.
   useReveal(`${!!user}-${repos.length}-${!!contrib}`);
 
@@ -55,38 +73,30 @@ function App() {
     const name = siteConfig.displayName.trim() || user?.name || login;
     const tagline = siteConfig.tagline.trim() || '풀스택 개발자';
     const initial = (name || 'D').trim().charAt(0).toUpperCase();
-    const pinnedSet = new Set(siteConfig.pinnedRepos);
-
-    // 고정 저장소는 README가 없어도 노출하고, 그 외에는 README가 있는 것만 보여줍니다.
-    const topRepos: RepoView[] = ordered
-      .filter((r) => {
-        const status = readmes[r.name]?.status;
-        return pinnedSet.has(r.name) ? status === 'done' || status === 'missing' : status === 'done';
-      })
-      .slice(0, count)
-      .map((r) => {
-        const home = r.homepage && String(r.homepage).trim();
-        const entry = readmes[r.name];
-        const text = entry?.text || '';
-        return {
-          id: r.id,
-          name: r.name,
-          url: r.html_url,
-          readmeText: text,
-          readmeBase: entry?.baseUrl || '',
-          preview:
-            readmePreview(text) ||
-            r.description ||
-            'README는 등록되어 있지만 미리볼 설명이 없습니다. 카드를 눌러 전체 내용을 확인하세요.',
-          language: r.language || '기타',
-          langColor: langColor(r.language),
-          stars: r.stargazers_count,
-          forks: r.forks_count,
-          updatedText: fmtUpdated(r.updated_at),
-          topics: Array.isArray(r.topics) ? r.topics.slice(0, 6) : [],
-          demoUrl: home ? normalizeUrl(home) : null,
-        };
-      });
+    const topRepos: RepoView[] = displayRepos.map((r) => {
+      const home = r.homepage && String(r.homepage).trim();
+      const entry = readmes[r.name];
+      const text = entry?.text || '';
+      return {
+        id: r.id,
+        name: r.name,
+        url: r.html_url,
+        readmeText: text,
+        readmeBase: entry?.baseUrl || '',
+        image: repoImages[r.name]?.url ?? null,
+        preview:
+          readmePreview(text) ||
+          r.description ||
+          'README는 등록되어 있지만 미리볼 설명이 없습니다. 카드를 눌러 전체 내용을 확인하세요.',
+        language: r.language || '기타',
+        langColor: langColor(r.language),
+        stars: r.stargazers_count,
+        forks: r.forks_count,
+        updatedText: fmtUpdated(r.updated_at),
+        topics: Array.isArray(r.topics) ? r.topics.slice(0, 6) : [],
+        demoUrl: home ? normalizeUrl(home) : null,
+      };
+    });
 
     const poolPending =
       poolNames.length > 0 &&
@@ -153,7 +163,18 @@ function App() {
       showContribSkeleton: !contribReady && !contribError,
       showContribError: !contribReady && contribError,
     };
-  }, [user, repos, reposError, contrib, contribError, readmes, ordered, poolNames, count, login]);
+  }, [
+    user,
+    repos,
+    reposError,
+    contrib,
+    contribError,
+    readmes,
+    displayRepos,
+    repoImages,
+    poolNames,
+    login,
+  ]);
 
   return (
     <div className="page">

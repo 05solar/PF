@@ -62,6 +62,8 @@ export type RepoView = {
   demoUrl: string | null;
   // README 안 상대경로 이미지를 절대 URL로 풀기 위한 기준 경로
   readmeBase: string;
+  // 저장소에서 찾은 대표 이미지 (없으면 null)
+  image: string | null;
 };
 
 export type ReadmeStatus = 'loading' | 'done' | 'missing' | 'error';
