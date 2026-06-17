@@ -58,7 +58,8 @@ export type RepoView = {
   stars: number;
   forks: number;
   updatedText: string;
-  topics: string[];
+  // README/토픽/언어에서 추정한 사용 기술 스택
+  stack: string[];
   demoUrl: string | null;
   // README 안 상대경로 이미지를 절대 URL로 풀기 위한 기준 경로
   readmeBase: string;

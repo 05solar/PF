@@ -58,16 +58,19 @@ export function RepoCard({ repo }: RepoCardProps) {
           </div>
         </div>
 
-        <div className="repo-eyebrow">README 미리보기</div>
+        <div className="repo-eyebrow">프로젝트 소개</div>
         <p className="repo-desc">{repo.preview}</p>
 
-        {repo.topics.length > 0 && (
-          <div className="repo-topics">
-            {repo.topics.map((t) => (
-              <span key={t} className="repo-topic">
-                {t}
-              </span>
-            ))}
+        {repo.stack.length > 0 && (
+          <div className="repo-stack-section">
+            <div className="repo-eyebrow">기술 스택</div>
+            <div className="repo-stack">
+              {repo.stack.map((s) => (
+                <span key={s} className="repo-stack-chip">
+                  {s}
+                </span>
+              ))}
+            </div>
           </div>
         )}
 

@@ -1,21 +1,46 @@
 import type { ReactNode } from 'react';
 
-// README 마크다운에서 사람이 읽을 첫 문단을 평문으로 뽑아 카드 미리보기로 씁니다.
-export function readmePreview(md: string, maxLen = 200): string {
-  const text = String(md || '')
-    .replace(/```[\s\S]*?```/g, ' ') // 코드 블록 제거
-    .replace(/<!--[\s\S]*?-->/g, ' ') // 주석 제거
-    .replace(/<[^>]+>/g, ' ') // HTML 태그 제거
-    .replace(/!\[[^\]]*\]\([^)]*\)/g, ' ') // 이미지 제거
+// README에서 제목·배지·이미지를 건너뛰고 첫 설명 문단만 뽑아 ~2줄 요약으로 씁니다.
+// (실제 2줄 자르기는 CSS line-clamp가 마무리합니다.)
+export function readmePreview(md: string, maxLen = 220): string {
+  const lines = String(md || '').replace(/\r/g, '').split('\n');
+  const parts: string[] = [];
+  let inFence = false;
+  for (const raw of lines) {
+    const t = raw.trim();
+    if (/^```/.test(t)) {
+      inFence = !inFence;
+      continue;
+    }
+    if (inFence) continue;
+    if (!t) {
+      if (parts.length) break; // 첫 문단까지만
+      continue;
+    }
+    if (/^#{1,6}\s/.test(t)) continue; // 제목/헤딩
+    if (/^[-=*_]{3,}$/.test(t)) continue; // 구분선
+    // 이미지/배지/HTML만 있는 줄은 건너뜀
+    const noImg = t
+      .replace(/\[!\[[^\]]*\]\([^)]*\)\]\([^)]*\)/g, '')
+      .replace(/!\[[^\]]*\]\([^)]*\)/g, '')
+      .replace(/<[^>]+>/g, '')
+      .trim();
+    if (!noImg) continue;
+    parts.push(noImg);
+  }
+
+  const text = parts
+    .join(' ')
+    .replace(/<!--[\s\S]*?-->/g, ' ')
+    .replace(/`([^`]+)`/g, '$1')
     .replace(/\[([^\]]+)\]\([^)]+\)/g, '$1') // 링크 → 텍스트
-    .replace(/^\s*[-*+]\s+/gm, '') // 목록 기호 제거
-    .replace(/^\s*#{1,6}\s+/gm, '') // 제목 기호 제거
-    .replace(/^\s*>\s?/gm, '') // 인용 기호 제거
-    .replace(/[*_`#]/g, '') // 잔여 강조 기호 제거
+    .replace(/^\s*[-*+]\s+/g, '')
+    .replace(/[*_>#`]/g, '')
     .replace(/\s+/g, ' ')
     .trim();
+
   if (text.length <= maxLen) return text;
-  return `${text.slice(0, maxLen).trimEnd()}…`;
+  return `${text.slice(0, maxLen).replace(/\s+\S*$/, '').trimEnd()}…`;
 }
 
 // README 본문에 쓰이는 아주 가벼운 마크다운 → React 노드 변환기입니다.

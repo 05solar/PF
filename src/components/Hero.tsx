@@ -4,12 +4,11 @@ type HeroProps = {
   name: string;
   tagline: string;
   login: string;
-  bioText: string;
   githubUrl: string;
   avatarUrl: string;
 };
 
-export function Hero({ name, tagline, login, bioText, githubUrl, avatarUrl }: HeroProps) {
+export function Hero({ name, tagline, login, githubUrl, avatarUrl }: HeroProps) {
   return (
     <header id="top" className="hero">
       <div className="hero-glow" aria-hidden="true" />
@@ -25,10 +24,13 @@ export function Hero({ name, tagline, login, bioText, githubUrl, avatarUrl }: He
             <span className="hero-title-em">{name}</span> 입니다.
           </h1>
           <p className="hero-lead">
-            제품을 처음부터 끝까지 책임지는 <strong>{tagline}</strong>입니다. 프론트엔드의 사용자
-            경험부터 백엔드 아키텍처와 배포까지, 한 흐름으로 만들어 냅니다.
+            전북대학교 <strong>IT지능정보공학과</strong>에 재학 중입니다. 풀스택 웹 개발과 AI 활용
+            기술에 관심을 가지고 다양한 프로젝트를 진행하고 있습니다.
           </p>
-          <p className="hero-bio">{bioText}</p>
+          <p className="hero-lead hero-lead-sub">
+            LLM, RAG, MCP(Model Context Protocol) 기반 AI 서비스 개발 경험을 보유하고 있으며,
+            프론트엔드부터 백엔드, AI 시스템 연동까지 전반적인 개발 역량을 갖추고 있습니다.
+          </p>
           <div className="hero-actions">
             <a className="btn btn-dark" href={githubUrl} target="_blank" rel="noopener noreferrer">
               <GithubIcon size={18} />

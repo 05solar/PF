@@ -13,6 +13,7 @@ import { useReveal } from './hooks/useReveal';
 import { siteConfig } from './data/site';
 import { buildWeeks, fmtUpdated, langColor, normalizeUrl } from './lib/github';
 import { readmePreview } from './lib/markdown';
+import { detectStack } from './lib/stack';
 import type { GithubRepo, LangStat, RepoView } from './types';
 
 function App() {
@@ -93,7 +94,13 @@ function App() {
         stars: r.stargazers_count,
         forks: r.forks_count,
         updatedText: fmtUpdated(r.updated_at),
-        topics: Array.isArray(r.topics) ? r.topics.slice(0, 6) : [],
+        stack: detectStack({
+          readme: text,
+          description: r.description,
+          name: r.name,
+          language: r.language,
+          topics: r.topics,
+        }),
         demoUrl: home ? normalizeUrl(home) : null,
       };
     });
@@ -184,7 +191,6 @@ function App() {
         name={view.name}
         tagline={view.tagline}
         login={login}
-        bioText={view.bio}
         githubUrl={view.githubUrl}
         avatarUrl={view.avatarUrl}
       />
