@@ -1,0 +1,147 @@
+.stack-grid {
+  display: grid;
+  grid-template-columns: 1.3fr 0.9fr;
+  gap: 24px;
+  align-items: start;
+}
+
+.stack-cards {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+
+.stack-card {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  padding: 22px;
+}
+
+.stack-card-title {
+  font-weight: 600;
+  font-size: 15px;
+  margin-bottom: 14px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.stack-card-mark {
+  width: 8px;
+  height: 8px;
+  border-radius: 2px;
+}
+
+.stack-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.stack-chip {
+  font-size: 13px;
+  color: var(--ink-soft);
+  background: var(--tile);
+  border: 1px solid var(--line);
+  padding: 6px 12px;
+  border-radius: 8px;
+}
+
+/* ---- 언어 사용 비율 패널 ---- */
+.lang-panel {
+  background: var(--dark-bg);
+  border-radius: 16px;
+  padding: 26px;
+  color: var(--dark-ink);
+}
+
+.lang-panel-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 18px;
+}
+
+.lang-panel-title {
+  font-weight: 600;
+  font-size: 15px;
+}
+
+.lang-panel-src {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--ink-faint);
+}
+
+.lang-bar {
+  display: flex;
+  height: 12px;
+  border-radius: 6px;
+  overflow: hidden;
+  margin-bottom: 18px;
+  background: var(--dark-line);
+}
+
+.lang-bar-seg {
+  height: 100%;
+}
+
+.lang-list {
+  display: flex;
+  flex-direction: column;
+  gap: 11px;
+}
+
+.lang-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 13.5px;
+}
+
+.lang-dot {
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  flex: none;
+}
+
+.lang-name {
+  color: var(--dark-ink);
+  flex: 1;
+}
+
+.lang-pct {
+  font-family: var(--font-mono);
+  color: var(--ink-dim);
+}
+
+.lang-skeleton {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.lang-skeleton .sk:first-child {
+  height: 12px;
+}
+
+.lang-empty {
+  margin: 0;
+  font-size: 13.5px;
+  color: var(--ink-dim);
+  line-height: 1.6;
+}
+
+@media (max-width: 880px) {
+  .stack-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 540px) {
+  .stack-cards {
+    grid-template-columns: 1fr;
+  }
+}

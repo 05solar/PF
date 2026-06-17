@@ -1,112 +1,110 @@
 @font-face {
   font-family: 'Pretendard';
-  src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/pretendard@1.0/Pretendard-Thin.woff2') format('woff2');
+  src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/pretendard@1.0/Pretendard-Thin.woff2')
+    format('woff2');
   font-weight: 100;
   font-display: swap;
 }
 
 @font-face {
   font-family: 'Pretendard';
-  src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/pretendard@1.0/Pretendard-ExtraLight.woff2') format('woff2');
+  src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/pretendard@1.0/Pretendard-ExtraLight.woff2')
+    format('woff2');
   font-weight: 200;
   font-display: swap;
 }
 
 @font-face {
   font-family: 'Pretendard';
-  src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/pretendard@1.0/Pretendard-Light.woff2') format('woff2');
+  src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/pretendard@1.0/Pretendard-Light.woff2')
+    format('woff2');
   font-weight: 300;
   font-display: swap;
 }
 
 @font-face {
   font-family: 'Pretendard';
-  src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/pretendard@1.0/Pretendard-Regular.woff2') format('woff2');
+  src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/pretendard@1.0/Pretendard-Regular.woff2')
+    format('woff2');
   font-weight: 400;
   font-display: swap;
 }
 
 @font-face {
   font-family: 'Pretendard';
-  src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/pretendard@1.0/Pretendard-Medium.woff2') format('woff2');
+  src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/pretendard@1.0/Pretendard-Medium.woff2')
+    format('woff2');
   font-weight: 500;
   font-display: swap;
 }
 
 @font-face {
   font-family: 'Pretendard';
-  src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/pretendard@1.0/Pretendard-SemiBold.woff2') format('woff2');
+  src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/pretendard@1.0/Pretendard-SemiBold.woff2')
+    format('woff2');
   font-weight: 600;
   font-display: swap;
 }
 
 @font-face {
   font-family: 'Pretendard';
-  src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/pretendard@1.0/Pretendard-Bold.woff2') format('woff2');
+  src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/pretendard@1.0/Pretendard-Bold.woff2')
+    format('woff2');
   font-weight: 700;
   font-display: swap;
 }
 
 @font-face {
   font-family: 'Pretendard';
-  src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/pretendard@1.0/Pretendard-ExtraBold.woff2') format('woff2');
+  src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/pretendard@1.0/Pretendard-ExtraBold.woff2')
+    format('woff2');
   font-weight: 800;
   font-display: swap;
 }
 
 @font-face {
   font-family: 'Pretendard';
-  src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/pretendard@1.0/Pretendard-Black.woff2') format('woff2');
+  src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/pretendard@1.0/Pretendard-Black.woff2')
+    format('woff2');
   font-weight: 900;
   font-display: swap;
 }
 
 :root {
-  --color-accent-source: #2f6044;
+  /* 본문은 Pretendard, 코드/숫자는 JetBrains Mono (index.html에서 로드) */
   --font-main: 'Pretendard', -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
-  --font-mono: 'Consolas', 'D2Coding', ui-monospace, SFMono-Regular, Menlo, monospace;
-}
+  --font-mono: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
 
-:root[data-theme='light'] {
-  --bg: #f9f8f6;
-  --bg-elev: #ffffff;
-  --bg-card: #ffffff;
-  --ink: #1a1a1a;
-  --ink-soft: #2a2a2a;
-  --ink-mute: #686761;
-  --ink-faint: #9c9a92;
-  --line: #e6e3dd;
-  --line-soft: #efeee9;
-  --chip-bg: #f1eee8;
-  --chip-ink: #1a1a1a;
-  --accent: var(--color-accent-source);
-  --accent-soft: color-mix(in srgb, var(--accent) 16%, transparent);
-  --accent-ink: #ffffff;
-  --code-bg: #14130f;
-  --code-ink: #eae7e0;
-  --code-line: #2a2926;
-  --shadow-md: 0 16px 40px -16px rgba(20, 20, 20, 0.18), 0 2px 6px rgba(20, 20, 20, 0.04);
-  --shadow-lg: 0 30px 70px -20px rgba(20, 20, 20, 0.35);
-}
+  /* 배경 · 표면 */
+  --bg: #f5f7fb;
+  --bg-soft: #eef1f8;
+  --surface: #ffffff;
+  --tile: #f1f4fa;
+  --line: #e6eaf2;
+  --line-soft: #eef1f7;
 
-:root[data-theme='dark'] {
-  --bg: #131311;
-  --bg-elev: #1b1b19;
-  --bg-card: #1b1b19;
-  --ink: #f2efe8;
-  --ink-soft: #e0dcd3;
-  --ink-mute: #a19c91;
-  --ink-faint: #716d65;
-  --line: #2c2a26;
-  --line-soft: #232220;
-  --chip-bg: #232220;
-  --chip-ink: #f2efe8;
-  --accent: color-mix(in srgb, var(--color-accent-source) 68%, white);
-  --accent-soft: color-mix(in srgb, var(--color-accent-source) 28%, transparent);
-  --accent-ink: #131311;
-  --code-bg: #0c0c0a;
-  --code-ink: #e6e2d9;
-  --code-line: #1f1e1b;
-  --shadow-md: 0 16px 40px -16px rgba(0, 0, 0, 0.6), 0 2px 6px rgba(0, 0, 0, 0.3);
-  --shadow-lg: 0 30px 70px -20px rgba(0, 0, 0, 0.7);
+  /* 텍스트 */
+  --ink: #0f172a;
+  --ink-soft: #334155;
+  --ink-mute: #475569;
+  --ink-faint: #64748b;
+  --ink-dim: #94a3b8;
+
+  /* 강조색 */
+  --accent: #4f46e5;
+  --accent-2: #2563eb;
+  --accent-soft: #eef1ff;
+  --accent-line: #dfe3ff;
+
+  /* 다크 영역 (스택 패널 · 연락처) */
+  --dark-bg: #0b1224;
+  --dark-bg-2: #131c33;
+  --dark-line: #1e293b;
+  --dark-ink: #e2e8f0;
+
+  /* 모션 · 레이아웃 */
+  --ease: cubic-bezier(0.16, 1, 0.3, 1);
+  --maxw: 1120px;
+  --pad: 32px;
+  --nav-h: 66px;
 }

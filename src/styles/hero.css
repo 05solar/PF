@@ -1,0 +1,212 @@
+.hero {
+  position: relative;
+  scroll-margin-top: 80px;
+}
+
+.hero-glow {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: radial-gradient(900px 460px at 78% -10%, rgba(79, 70, 229, 0.16), transparent 60%),
+    radial-gradient(680px 420px at 8% 12%, rgba(37, 99, 235, 0.12), transparent 55%);
+}
+
+.hero-inner {
+  position: relative;
+  max-width: var(--maxw);
+  margin: 0 auto;
+  padding: 96px var(--pad) 84px;
+  display: grid;
+  grid-template-columns: 1.25fr 0.85fr;
+  gap: 56px;
+  align-items: center;
+}
+
+.hero-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--font-mono);
+  font-size: 12.5px;
+  font-weight: 500;
+  color: var(--accent);
+  background: var(--accent-soft);
+  border: 1px solid var(--accent-line);
+  padding: 6px 12px;
+  border-radius: 999px;
+  margin-bottom: 24px;
+}
+
+.hero-badge-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #22c55e;
+  box-shadow: 0 0 0 3px rgba(34, 197, 94, 0.18);
+}
+
+.hero-title {
+  font-size: clamp(40px, 5.4vw, 68px);
+  line-height: 1.04;
+  letter-spacing: -0.03em;
+  font-weight: 700;
+  margin: 0 0 20px;
+}
+
+.hero-title-em {
+  color: var(--accent);
+}
+
+.hero-lead {
+  font-size: 19px;
+  line-height: 1.65;
+  color: var(--ink-mute);
+  max-width: 540px;
+  margin: 0 0 14px;
+}
+
+.hero-lead strong {
+  color: var(--ink);
+  font-weight: 600;
+}
+
+.hero-bio {
+  font-size: 15px;
+  line-height: 1.6;
+  color: var(--ink-faint);
+  max-width: 540px;
+  margin: 0 0 32px;
+  font-family: var(--font-mono);
+}
+
+.hero-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-bottom: 38px;
+}
+
+/* ---- 코드 카드 ---- */
+.hero-card-wrap {
+  display: flex;
+  justify-content: center;
+  position: relative;
+}
+
+.hero-card-glow {
+  position: absolute;
+  inset: -8% 8%;
+  background: linear-gradient(135deg, #4f46e5, #2563eb);
+  border-radius: 36px;
+  filter: blur(46px);
+  opacity: 0.22;
+  animation: floaty 7s ease-in-out infinite;
+}
+
+.hero-card {
+  position: relative;
+  width: 300px;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: 24px;
+  padding: 22px;
+  box-shadow: 0 30px 60px -28px rgba(30, 41, 90, 0.45);
+}
+
+.hero-card-bar {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  margin-bottom: 16px;
+}
+
+.dot {
+  width: 11px;
+  height: 11px;
+  border-radius: 50%;
+}
+
+.dot-red {
+  background: #f87171;
+}
+
+.dot-yellow {
+  background: #fbbf24;
+}
+
+.dot-green {
+  background: #34d399;
+}
+
+.hero-card-file {
+  margin-left: auto;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--ink-dim);
+}
+
+.hero-card-avatar {
+  margin-bottom: 14px;
+}
+
+.hero-card-avatar img {
+  width: 84px;
+  height: 84px;
+  border-radius: 18px;
+  object-fit: cover;
+  border: 1px solid var(--line);
+  display: block;
+}
+
+.hero-code {
+  font-family: var(--font-mono);
+  font-size: 13px;
+  line-height: 1.85;
+  color: var(--ink-mute);
+}
+
+.hero-code .t-indent {
+  padding-left: 16px;
+}
+
+.t-kw {
+  color: #9333ea;
+}
+
+.t-var {
+  color: var(--ink);
+}
+
+.t-op {
+  color: var(--ink-dim);
+}
+
+.t-key {
+  color: var(--accent-2);
+}
+
+.t-str {
+  color: #16a34a;
+}
+
+@media (max-width: 880px) {
+  .hero-inner {
+    grid-template-columns: 1fr;
+    gap: 40px;
+    padding: 72px var(--pad) 56px;
+  }
+
+  .hero-card-wrap {
+    order: -1;
+  }
+}
+
+@media (max-width: 720px) {
+  .hero-inner {
+    padding: 60px 20px 48px;
+  }
+
+  .hero-lead {
+    font-size: 17px;
+  }
+}
