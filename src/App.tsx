@@ -6,6 +6,7 @@ import { Projects } from './components/Projects';
 import { Activity } from './components/Activity';
 import { Contact } from './components/Contact';
 import { Footer } from './components/Footer';
+import { ScrollTop } from './components/ScrollTop';
 import { useGithub } from './hooks/useGithub';
 import { useReadmes } from './hooks/useReadmes';
 import { useReveal } from './hooks/useReveal';
@@ -227,6 +228,8 @@ function App() {
       />
 
       <Footer name={view.name} login={login} />
+
+      <ScrollTop />
     </div>
   );
 }
