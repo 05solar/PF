@@ -81,7 +81,9 @@ function App() {
         readmeBase: entry?.baseUrl || '',
         // 커버 이미지는 README 안의 첫 이미지에서만 가져옵니다.
         image: firstReadmeImage(text, entry?.baseUrl || ''),
+        // 직접 작성한 소개 문구가 있으면 우선 사용하고, 없으면 README 자동 요약으로 대체합니다.
         preview:
+          siteConfig.descriptions[r.name] ||
           readmePreview(text) ||
           r.description ||
           'README는 등록되어 있지만 미리볼 설명이 없습니다. 카드를 눌러 전체 내용을 확인하세요.',

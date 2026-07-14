@@ -86,7 +86,10 @@
 .repo-cover img {
   display: block;
   width: 100%;
-  height: auto; /* 이미지가 잘리지 않고 전체가 보이도록 */
+  /* 화면 폭에 따라 완만히 커지되 너무 커지지 않도록 높이를 제한한 배너 형태 */
+  height: clamp(150px, 22vw, 210px);
+  object-fit: cover; /* 비율 유지하며 카드 폭에 맞춰 채움 */
+  object-position: top center; /* 스크린샷 상단(제목·헤더)이 보이도록 */
 }
 
 .repo-top {
