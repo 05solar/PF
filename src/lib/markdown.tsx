@@ -75,8 +75,9 @@ export function firstReadmeImage(md: string, base = ''): string | null {
     /shields\.io|img\.shields|\bbadge\b|flat-square|circleci|codecov|coveralls|travis|\/workflows\/|actions\/workflow|badgen|forthebadge/i.test(
       s,
     );
-  const pick = found.find((f) => !isBadge(f.src)) || found[0];
-  return resolveAssetUrl(pick.src, base);
+  // 배지(shields 등)뿐이면 커버로 쓰지 않고 이미지 없음으로 처리합니다.
+  const pick = found.find((f) => !isBadge(f.src));
+  return pick ? resolveAssetUrl(pick.src, base) : null;
 }
 
 export function renderInline(input: string, base = ''): ReactNode[] {

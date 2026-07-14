@@ -10,9 +10,17 @@ export const siteConfig: SiteConfig = {
   // 비워두면 GitHub 이메일 → '사용자명@gmail.com' 순으로 대체됩니다.
   email: '',
   // 보여줄 대표 저장소 개수 (3 ~ 12)
-  projectCount: 6,
-  // 항상 맨 앞에 고정 노출할 저장소 (fork여도 포함)
-  pinnedRepos: ['GMG', 'JBNU-lab3-MCP', 'JBNU-lab2-RAG', 'JBNU-lab1-chatbot'],
+  projectCount: 7,
+  // 대표 포트폴리오: 지정한 순서 그대로 고정 노출합니다 (fork여도 포함).
+  pinnedRepos: [
+    'checkmiteV1',
+    'GO',
+    'MSA-restaurant',
+    'OSS_GPT-Role-exp',
+    'JBNU-lab2-RAG',
+    'JBNU-lab3-MCP',
+    'OV-clonecoding',
+  ],
   // 프로젝트 카드에서 제외할 저장소
   excludedRepos: ['my-letter-site', 'PF', 'p2', 'portfolio'],
 };
