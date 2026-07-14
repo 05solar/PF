@@ -8,6 +8,8 @@ export type SiteConfig = {
   pinnedRepos: string[];
   // 프로젝트 카드에서 제외할 저장소 이름
   excludedRepos: string[];
+  // 저장소 이름 → 직접 작성한 소개 문구 (있으면 README 자동 요약 대신 사용)
+  descriptions: Record<string, string>;
 };
 
 export type GithubUser = {
