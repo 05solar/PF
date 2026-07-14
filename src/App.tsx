@@ -11,6 +11,7 @@ import { useGithub } from './hooks/useGithub';
 import { useReadmes } from './hooks/useReadmes';
 import { useReveal } from './hooks/useReveal';
 import { siteConfig } from './data/site';
+import { fallbackLangStats, fallbackRepos } from './data/fallback';
 import { buildWeeks, fmtUpdated, langColor, normalizeUrl } from './lib/github';
 import { firstReadmeImage, readmePreview } from './lib/markdown';
 import { detectStack } from './lib/stack';
@@ -70,7 +71,7 @@ function App() {
     const name = siteConfig.displayName.trim() || user?.name || login;
     const tagline = siteConfig.tagline.trim() || '풀스택 개발자';
     const initial = (name || 'D').trim().charAt(0).toUpperCase();
-    const topRepos: RepoView[] = displayRepos.map((r) => {
+    const liveTopRepos: RepoView[] = displayRepos.map((r) => {
       const home = r.homepage && String(r.homepage).trim();
       const entry = readmes[r.name];
       const text = entry?.text || '';
@@ -116,7 +117,7 @@ function App() {
     });
     const entries = Object.entries(counts).sort((a, b) => b[1] - a[1]);
     const totalLang = entries.reduce((acc, e) => acc + e[1], 0);
-    const langStats: LangStat[] = entries.slice(0, 6).map(([n, c]) => {
+    const liveLangStats: LangStat[] = entries.slice(0, 6).map(([n, c]) => {
       const pct = totalLang ? Math.round((c / totalLang) * 100) : 0;
       return { name: n, color: langColor(n), width: `${pct}%`, pctText: `${pct}%` };
     });
@@ -138,8 +139,20 @@ function App() {
     const blogLabel = blog ? 'Website' : user?.location ? 'Location' : 'Website';
 
     const reposReady = repos.length > 0;
-    const langReady = langStats.length > 0;
     const contribReady = !!contrib;
+
+    // 프로젝트 카드: 아직 로딩 중이면 스켈레톤, 실패/한도 초과면 저장본(fallback)으로 대체합니다.
+    const projectsLoading =
+      (!reposReady && !reposError) ||
+      (reposReady && poolPending && liveTopRepos.length === 0);
+    const topRepos =
+      liveTopRepos.length > 0 ? liveTopRepos : projectsLoading ? [] : fallbackRepos;
+
+    // 언어 사용 비율: 로딩 중이면 스켈레톤, 실패/한도 초과면 저장본으로 대체합니다.
+    const langLoading = !reposReady && !reposError;
+    const langStats =
+      liveLangStats.length > 0 ? liveLangStats : langLoading ? [] : fallbackLangStats;
+    const langReady = langStats.length > 0;
 
     return {
       name,
@@ -157,14 +170,13 @@ function App() {
       statContrib,
       weeks,
       readmeErrored,
-      showReposSkeleton:
-        (!reposReady && !reposError) ||
-        (reposReady && poolPending && topRepos.length === 0),
-      showReposError: !reposReady && reposError,
-      showReposEmpty: reposReady && !poolPending && topRepos.length === 0,
+      // 저장본으로 항상 카드/언어를 채우므로 에러·빈 상태는 표시하지 않습니다.
+      showReposSkeleton: projectsLoading && topRepos.length === 0,
+      showReposError: false,
+      showReposEmpty: false,
       langReady,
-      showLangSkeleton: !langReady && !reposError,
-      showLangError: !langReady && reposError && repos.length === 0,
+      showLangSkeleton: langLoading && langStats.length === 0,
+      showLangError: false,
       contribReady,
       showContribSkeleton: !contribReady && !contribError,
       showContribError: !contribReady && contribError,
