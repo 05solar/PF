@@ -86,6 +86,25 @@ export function ChevronIcon({ size = 16, className }: IconProps) {
   );
 }
 
+export function ArrowUpIcon({ size = 22, className }: IconProps) {
+  return (
+    <svg
+      width={size}
+      height={size}
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth={2.4}
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      className={className}
+    >
+      <path d="M12 19V5" />
+      <path d="m5 12 7-7 7 7" />
+    </svg>
+  );
+}
+
 export function GlobeIcon({ size = 24, className }: IconProps) {
   return (
     <svg
