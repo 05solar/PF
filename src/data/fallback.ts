@@ -32,17 +32,17 @@ const DEFS: FallbackDef[] = [
     image: raw('MSA-restaurant', 'assets/customer.png'),
   },
   {
-    name: 'OSS_GPT-Role-exp',
+    name: 'GPT-Role-exp',
     language: 'Python',
-    image: raw('OSS_GPT-Role-exp', 'docs/screenshot.png'),
+    image: raw('GPT-Role-exp', 'docs/screenshot.png'),
   },
   {
-    name: 'JBNU-lab2-RAG',
+    name: 'RAG-agent',
     language: 'Python',
-    image: raw('JBNU-lab2-RAG', 'docs/assets/readme-preview.png'),
+    image: raw('RAG-agent', 'docs/assets/readme-preview.png'),
   },
-  { name: 'JBNU-lab3-MCP', language: 'Python', image: raw('JBNU-lab3-MCP', 'assets/image.png') },
-  { name: 'OV-clonecoding', language: 'JavaScript', image: null },
+  { name: 'MCP-shopbot', language: 'Python', image: raw('MCP-shopbot', 'assets/image.png') },
+  { name: 'OV_CC', language: 'JavaScript', image: null },
 ];
 
 export const fallbackRepos: RepoView[] = DEFS.map((d, i) => {
