@@ -1,6 +1,7 @@
 import type { ContribDay } from '../types';
 
-const HEAT_COLORS = ['#eef1f7', '#c4d4f6', '#8aa8ed', '#4f6fe0', '#3346c9'];
+// 레벨 0(활동 없음)은 옅게 유지하고, 활동이 있는 1~4는 더 진하고 선명한 블루로.
+const HEAT_COLORS = ['#eef1f7', '#9db0ef', '#5f79e6', '#3247cf', '#1c2a91'];
 // 한 열(주)의 가로 간격: 셀 11px + 간격 3px. CSS와 동일하게 유지해야 합니다.
 const COL = 14;
 
