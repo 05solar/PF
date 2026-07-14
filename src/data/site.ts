@@ -8,7 +8,7 @@ export const siteConfig: SiteConfig = {
   displayName: '',
   tagline: '풀스택 개발자',
   // 비워두면 GitHub 이메일 → '사용자명@gmail.com' 순으로 대체됩니다.
-  email: '',
+  email: 'lotus05f@gmail.com',
   // 보여줄 대표 저장소 개수 (3 ~ 12)
   projectCount: 7,
   // 대표 포트폴리오: 지정한 순서 그대로 고정 노출합니다 (fork여도 포함).
