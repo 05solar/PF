@@ -19,7 +19,7 @@ export const siteConfig: SiteConfig = {
     'GPT-Role-exp',
     'RAG-agent',
     'MCP-shopbot',
-    'OV_CC',
+    'OV-clonecoding',
   ],
   // 프로젝트 카드에서 제외할 저장소
   excludedRepos: ['my-letter-site', 'PF', 'p2', 'portfolio'],
@@ -37,7 +37,7 @@ export const siteConfig: SiteConfig = {
       'PDF를 업로드해 문서 내용을 질문하는 RAG 챗봇에, 졸업 요건 상담·도서 추천·교내 시설 안내 등 SQLite DB 기반 에이전트 탭을 더한 실습 프로젝트입니다. 답변 LLM과 평가 LLM 결과를 함께 보여줍니다.',
     'MCP-shopbot':
       '상품 데이터베이스를 MCP(Model Context Protocol)로 연동한 한국어 AI 쇼핑 도우미입니다. FastAPI·React 구성으로, OpenAI Tool Calling을 통해 상품 검색·상세 조회·재고 확인을 처리합니다.',
-    OV_CC:
+    'OV-clonecoding':
       '올리브영 메인 페이지를 React·Vite로 구현한 클론 코딩 과제입니다. 카테고리 드로어, 자동 슬라이드 캐러셀, 상품 상세 라우팅, 반응형 레이아웃까지 실제 커머스 UI 흐름을 재현했습니다.',
   },
 };

@@ -105,9 +105,6 @@ function App() {
       };
     });
 
-    const poolPending =
-      poolNames.length > 0 &&
-      poolNames.some((n) => !readmes[n] || readmes[n].status === 'loading');
     const readmeErrored = poolNames.some((n) => readmes[n]?.status === 'error');
 
     // 언어 사용 비율은 전체 저장소 기준으로 집계합니다.
@@ -141,12 +138,14 @@ function App() {
     const reposReady = repos.length > 0;
     const contribReady = !!contrib;
 
-    // 프로젝트 카드: 아직 로딩 중이면 스켈레톤, 실패/한도 초과면 저장본(fallback)으로 대체합니다.
-    const projectsLoading =
-      (!reposReady && !reposError) ||
-      (reposReady && poolPending && liveTopRepos.length === 0);
-    const topRepos =
-      liveTopRepos.length > 0 ? liveTopRepos : projectsLoading ? [] : fallbackRepos;
+    // 대표 프로젝트 카드는 pinnedRepos 순서대로 "항상" 노출합니다.
+    // 각 저장소는 실시간 데이터가 준비되면 그걸 쓰고, 아직 없으면(로딩 중·한도 초과·
+    // 이름 불일치 등) 저장본(fallback)으로 즉시 채워서 카드가 사라지지 않게 합니다.
+    const liveByName = new Map(liveTopRepos.map((r) => [r.name, r]));
+    const fallbackByName = new Map(fallbackRepos.map((r) => [r.name, r]));
+    const topRepos = siteConfig.pinnedRepos
+      .map((name) => liveByName.get(name) || fallbackByName.get(name))
+      .filter((r): r is RepoView => Boolean(r));
 
     // 언어 사용 비율: 로딩 중이면 스켈레톤, 실패/한도 초과면 저장본으로 대체합니다.
     const langLoading = !reposReady && !reposError;
@@ -170,8 +169,8 @@ function App() {
       statContrib,
       weeks,
       readmeErrored,
-      // 저장본으로 항상 카드/언어를 채우므로 에러·빈 상태는 표시하지 않습니다.
-      showReposSkeleton: projectsLoading && topRepos.length === 0,
+      // 대표 카드는 저장본으로 항상 채워지므로 스켈레톤·에러·빈 상태를 쓰지 않습니다.
+      showReposSkeleton: false,
       showReposError: false,
       showReposEmpty: false,
       langReady,

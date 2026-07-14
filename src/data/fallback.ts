@@ -42,7 +42,7 @@ const DEFS: FallbackDef[] = [
     image: raw('RAG-agent', 'docs/assets/readme-preview.png'),
   },
   { name: 'MCP-shopbot', language: 'Python', image: raw('MCP-shopbot', 'assets/image.png') },
-  { name: 'OV_CC', language: 'JavaScript', image: null },
+  { name: 'OV-clonecoding', language: 'JavaScript', image: null },
 ];
 
 export const fallbackRepos: RepoView[] = DEFS.map((d, i) => {
