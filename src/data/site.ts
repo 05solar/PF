@@ -5,7 +5,7 @@ import type { SiteConfig } from '../types';
 export const siteConfig: SiteConfig = {
   githubUsername: '05solar',
   // 비워두면 GitHub 프로필의 이름(name)을 사용하고, 없으면 사용자명을 사용합니다.
-  displayName: '',
+  displayName: 'leeosolha',
   tagline: '풀스택 개발자',
   // 비워두면 GitHub 이메일 → '사용자명@gmail.com' 순으로 대체됩니다.
   email: 'lotus05f@gmail.com',
