@@ -1,6 +1,7 @@
 # PF
 
 React + Vite + TypeScript 기반 포트폴리오입니다.
+.
 
 ## Scripts
 
