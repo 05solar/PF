@@ -7,7 +7,7 @@
 .projects-inner {
   max-width: var(--maxw);
   margin: 0 auto;
-  padding: 72px var(--pad);
+  padding: 28px var(--pad);
 }
 
 .projects-head {
@@ -37,8 +37,9 @@
 
 /* ---- 저장소 카드 ---- */
 .repo-list {
-  display: flex;
-  flex-direction: column;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  align-items: start;
   gap: 22px;
 }
 
@@ -64,6 +65,8 @@
 .repo.is-open {
   box-shadow: 0 22px 44px -28px rgba(30, 41, 90, 0.4);
   border-color: #c7d2fe;
+  /* 펼친 카드는 그리드 한 행(2열)을 전부 차지 */
+  grid-column: 1 / -1;
 }
 
 .repo-accent {
@@ -228,7 +231,8 @@
 .repo-readme-wrap {
   display: grid;
   grid-template-rows: 0fr;
-  transition: grid-template-rows 0.45s var(--ease);
+  /* 카드 폭 FLIP 애니메이션(0.6s)과 같은 타이밍으로 맞춰 함께 움직이는 느낌을 줍니다 */
+  transition: grid-template-rows 0.6s var(--ease-smooth, cubic-bezier(0.4, 0, 0.2, 1));
 }
 
 .repo.is-open .repo-readme-wrap {
@@ -428,7 +432,11 @@
 
 @media (max-width: 720px) {
   .projects-inner {
-    padding: 56px 20px;
+    padding: 24px 20px;
+  }
+
+  .repo-list {
+    grid-template-columns: 1fr;
   }
 
   .repo-body {

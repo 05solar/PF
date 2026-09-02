@@ -15,11 +15,11 @@ export function Nav({ name, initial }: NavProps) {
           <a href="#stack" className="nav-link">
             기술 스택
           </a>
-          <a href="#projects" className="nav-link">
-            프로젝트
-          </a>
           <a href="#activity" className="nav-link">
             활동
+          </a>
+          <a href="#projects" className="nav-link">
+            프로젝트
           </a>
           <a href="#contact" className="nav-cta">
             연락하기

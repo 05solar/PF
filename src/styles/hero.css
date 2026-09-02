@@ -15,7 +15,7 @@
   position: relative;
   max-width: var(--maxw);
   margin: 0 auto;
-  padding: 96px var(--pad) 84px;
+  padding: 72px var(--pad) 36px;
   display: grid;
   grid-template-columns: 1.25fr 0.85fr;
   gap: 56px;
@@ -190,7 +190,7 @@
   .hero-inner {
     grid-template-columns: 1fr;
     gap: 40px;
-    padding: 72px var(--pad) 56px;
+    padding: 56px var(--pad) 28px;
   }
 
   .hero-card-wrap {
@@ -200,7 +200,7 @@
 
 @media (max-width: 720px) {
   .hero-inner {
-    padding: 60px 20px 48px;
+    padding: 48px 20px 24px;
   }
 
   .hero-lead {

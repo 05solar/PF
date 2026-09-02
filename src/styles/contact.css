@@ -6,7 +6,7 @@
 .contact-inner {
   max-width: var(--maxw);
   margin: 0 auto;
-  padding: 80px var(--pad);
+  padding: 40px var(--pad);
 }
 
 .contact-head {
@@ -70,7 +70,7 @@
 
 @media (max-width: 720px) {
   .contact-inner {
-    padding: 60px 20px;
+    padding: 28px 20px;
   }
 
   .contact-cards {

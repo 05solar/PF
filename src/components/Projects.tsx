@@ -1,4 +1,5 @@
 import type { RepoView } from '../types';
+import { useFlipList } from '../hooks/useFlipList';
 import { RepoCard } from './RepoCard';
 
 type ProjectsProps = {
@@ -20,13 +21,15 @@ export function Projects({
   readmeErrored,
   onRetry,
 }: ProjectsProps) {
+  const { listRef, captureFlip } = useFlipList<HTMLDivElement>();
+
   return (
     <section id="projects" className="section-full projects">
       <div className="projects-inner">
         <div className="projects-head" data-reveal>
           <div>
             <span className="eyebrow">PROJECTS</span>
-            <h2 className="section-title">프로젝트 쇼케이스</h2>
+            <h2 className="section-title">포트폴리오</h2>
             <p className="section-desc">
               README가 등록된 저장소만 모았습니다. 카드를 누르면 펼쳐지며 전체 README와 코드 설명을
               볼 수 있어요.
@@ -38,9 +41,9 @@ export function Projects({
         </div>
 
         {topRepos.length > 0 && (
-          <div className="repo-list">
+          <div className="repo-list" ref={listRef}>
             {topRepos.map((repo) => (
-              <RepoCard key={repo.id} repo={repo} />
+              <RepoCard key={repo.id} repo={repo} onBeforeToggle={captureFlip} />
             ))}
           </div>
         )}

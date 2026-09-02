@@ -21,7 +21,6 @@ export function Activity({
       <div className="section-head" data-reveal>
         <span className="eyebrow">ACTIVITY</span>
         <h2 className="section-title">GitHub 활동</h2>
-        <p className="section-desc">최근 1년간의 실제 기여 그래프입니다. 꾸준함이 곧 실력입니다.</p>
       </div>
 
       <div className="activity-card" data-reveal style={{ transitionDelay: '.05s' }}>

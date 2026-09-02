@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import type { KeyboardEvent, MouseEvent } from 'react';
 import type { RepoView } from '../types';
 import { renderMarkdown } from '../lib/markdown';
@@ -6,12 +6,38 @@ import { BookIcon, ChevronIcon, ExternalIcon } from './icons';
 
 type RepoCardProps = {
   repo: RepoView;
+  onBeforeToggle?: () => void;
 };
 
-export function RepoCard({ repo }: RepoCardProps) {
+export function RepoCard({ repo, onBeforeToggle }: RepoCardProps) {
   const [open, setOpen] = useState(false);
+  const cardRef = useRef<HTMLElement | null>(null);
 
-  const toggle = () => setOpen((v) => !v);
+  // 카드를 펼치면 (그리드 재배치로 아래 행에 내려갈 수 있으므로) 카드 상단으로 자동 스크롤
+  useEffect(() => {
+    if (!open) return;
+    const el = cardRef.current;
+    if (!el) return;
+    const frame = requestAnimationFrame(() => {
+      // FLIP 역변환(transform)에 영향받지 않는 레이아웃 기준 위치를 offsetTop으로 계산
+      let top = 0;
+      let node: HTMLElement | null = el;
+      while (node) {
+        top += node.offsetTop;
+        node = node.offsetParent as HTMLElement | null;
+      }
+      const navH =
+        parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--nav-h')) || 66;
+      window.scrollTo({ top: Math.max(0, top - navH - 16), behavior: 'smooth' });
+    });
+    return () => cancelAnimationFrame(frame);
+  }, [open]);
+
+  const toggle = () => {
+    // 레이아웃이 바뀌기 전 위치를 부모가 스냅샷할 수 있게 먼저 알립니다. (FLIP)
+    onBeforeToggle?.();
+    setOpen((v) => !v);
+  };
   // 카드 안의 링크를 누를 때는 카드가 접히지 않도록 전파를 막습니다.
   const stop = (e: MouseEvent) => e.stopPropagation();
   const onKeyDown = (e: KeyboardEvent<HTMLElement>) => {
@@ -23,6 +49,7 @@ export function RepoCard({ repo }: RepoCardProps) {
 
   return (
     <article
+      ref={cardRef}
       className={`repo${open ? ' is-open' : ''}`}
       role="button"
       tabIndex={0}

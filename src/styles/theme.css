@@ -104,6 +104,7 @@
 
   /* 모션 · 레이아웃 */
   --ease: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-smooth: cubic-bezier(0.4, 0, 0.2, 1);
   --maxw: 1120px;
   --pad: 32px;
   --nav-h: 66px;

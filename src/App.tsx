@@ -211,6 +211,14 @@ function App() {
         showError={view.showLangError}
       />
 
+      <Activity
+        statContrib={view.statContrib}
+        weeks={view.weeks}
+        contribReady={view.contribReady}
+        showSkeleton={view.showContribSkeleton}
+        showError={view.showContribError}
+      />
+
       <Projects
         topRepos={view.topRepos}
         githubUrl={view.githubUrl}
@@ -219,14 +227,6 @@ function App() {
         showEmpty={view.showReposEmpty}
         readmeErrored={view.readmeErrored}
         onRetry={retry}
-      />
-
-      <Activity
-        statContrib={view.statContrib}
-        weeks={view.weeks}
-        contribReady={view.contribReady}
-        showSkeleton={view.showContribSkeleton}
-        showError={view.showContribError}
       />
 
       <Contact

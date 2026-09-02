@@ -42,7 +42,7 @@ button {
   scroll-margin-top: 80px;
   max-width: var(--maxw);
   margin: 0 auto;
-  padding: 60px var(--pad);
+  padding: 24px var(--pad);
 }
 
 .section-full {
@@ -52,7 +52,7 @@ button {
 .section-inner {
   max-width: var(--maxw);
   margin: 0 auto;
-  padding: 72px var(--pad);
+  padding: 28px var(--pad);
 }
 
 /* ---- 섹션 헤더 공통 ---- */
@@ -249,11 +249,11 @@ button {
 
 @media (max-width: 720px) {
   .section {
-    padding: 48px 20px;
+    padding: 20px 20px;
   }
 
   .section-inner {
-    padding: 56px 20px;
+    padding: 24px 20px;
   }
 
   .section-title {

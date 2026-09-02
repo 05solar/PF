@@ -10,16 +10,17 @@ export const siteConfig: SiteConfig = {
   // 비워두면 GitHub 이메일 → '사용자명@gmail.com' 순으로 대체됩니다.
   email: 'lotus05f@gmail.com',
   // 보여줄 대표 저장소 개수 (3 ~ 12)
-  projectCount: 7,
+  projectCount: 8,
   // 대표 포트폴리오: 지정한 순서 그대로 고정 노출합니다 (fork여도 포함).
   pinnedRepos: [
     'checkmiteV1',
     'GO',
     'MSA-restaurant',
-    'GPT-Role-exp',
+    'kiro-test',
     'RAG-agent',
     'MCP-shopbot',
     'OV-clonecoding',
+    'Auto-PPT',
   ],
   // 프로젝트 카드에서 제외할 저장소
   excludedRepos: ['my-letter-site', 'PF', 'p2', 'portfolio'],
@@ -31,14 +32,16 @@ export const siteConfig: SiteConfig = {
     GO: '브라우저에서 바로 즐기는 바둑(9×9·13×13)·오목(15×15) 게임입니다. 서버 없이 동작하며, 웹워커에서 바둑은 MCTS, 오목은 알파-베타 AI가 3단계 난이도로 대국합니다.',
     'MSA-restaurant':
       '고객·관리자용 식당 서비스를 마이크로서비스로 구현한 프로젝트입니다. Spring Boot 게이트웨이(JWT 인증)와 Auth·Menu·Order·Review 서비스, FastAPI AI 서비스를 Docker Compose 한 번으로 실행합니다.',
-    'GPT-Role-exp':
-      '프롬프트 역할 부여(role assignment)의 효과를 단계별로 배우는 OpenAI API 교육용 패키지입니다. 역할 유무 비교부터 다중 역할 파이프라인까지 파일 1개 완결형 레슨 15개로 구성했습니다.',
+    'kiro-test':
+      '시험까지 남은 시간과 업로드한 강의자료를 AI가 분석해, 실제로 수행 가능한 벼락치기 학습 커리큘럼을 만들어 주는 서비스입니다. 로그인 없이 8자리 세션 코드로 접근하며, Spring Boot·Next.js·Gemini 구성으로 문서 분석부터 퀴즈·동적 커리큘럼 재조정까지 구현했습니다.',
     'RAG-agent':
       'PDF를 업로드해 문서 내용을 질문하는 RAG 챗봇에, 졸업 요건 상담·도서 추천·교내 시설 안내 등 SQLite DB 기반 에이전트 탭을 더한 실습 프로젝트입니다. 답변 LLM과 평가 LLM 결과를 함께 보여줍니다.',
     'MCP-shopbot':
       '상품 데이터베이스를 MCP(Model Context Protocol)로 연동한 한국어 AI 쇼핑 도우미입니다. FastAPI·React 구성으로, OpenAI Tool Calling을 통해 상품 검색·상세 조회·재고 확인을 처리합니다.',
     'OV-clonecoding':
       '올리브영 메인 페이지를 React·Vite로 구현한 클론 코딩 과제입니다. 카테고리 드로어, 자동 슬라이드 캐러셀, 상품 상세 라우팅, 반응형 레이아웃까지 실제 커머스 UI 흐름을 재현했습니다.',
+    'Auto-PPT':
+      '문서·텍스트를 넣으면 편집 가능한 네이티브 PowerPoint(.pptx)를 자동 생성하는 로컬 웹앱입니다. API 키 없이 로그인된 Claude Code·Codex CLI를 웹에서 구동하며, 스타일별 디자인 규약(폰트 임베드·레이아웃 규칙)을 후처리로 강제 적용합니다.',
   },
 };
 
