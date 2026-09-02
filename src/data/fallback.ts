@@ -32,9 +32,9 @@ const DEFS: FallbackDef[] = [
     image: raw('MSA-restaurant', 'assets/customer.png'),
   },
   {
-    name: 'kiro-test',
+    name: 'By-Tomorrow',
     language: 'Java',
-    image: raw('kiro-test', 'docs/screenshots/overview.png'),
+    image: raw('By-Tomorrow', 'docs/screenshots/overview.png'),
   },
   {
     name: 'RAG-agent',
