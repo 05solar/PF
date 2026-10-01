@@ -2,6 +2,10 @@ import { useState } from 'react';
 import type { RepoView } from '../types';
 import { useFlipList } from '../hooks/useFlipList';
 import { RepoCard } from './RepoCard';
+import { RepoListItem } from './RepoListItem';
+import { GridIcon, ListIcon } from './icons';
+
+type ViewMode = 'card' | 'list';
 
 type ProjectsProps = {
   topRepos: RepoView[];
@@ -23,13 +27,21 @@ export function Projects({
   onRetry,
 }: ProjectsProps) {
   const { listRef, captureFlip } = useFlipList<HTMLDivElement>();
-  // 아코디언: 한 번에 하나의 카드만 펼칩니다. (열린 카드 id, 없으면 null)
+  // 보기 방식: 카드형 / 리스트형
+  const [viewMode, setViewMode] = useState<ViewMode>('card');
+  // 아코디언: 한 번에 하나만 펼칩니다. (열린 항목 id, 없으면 null) — 카드·리스트 공유
   const [openId, setOpenId] = useState<number | null>(null);
 
   const toggleCard = (id: number) => {
     // 레이아웃이 바뀌기 전 위치를 먼저 스냅샷해 FLIP으로 부드럽게 이동시킵니다.
     captureFlip();
     setOpenId((cur) => (cur === id ? null : id));
+  };
+
+  const switchView = (mode: ViewMode) => {
+    if (mode === viewMode) return;
+    setOpenId(null); // 뷰 전환 시 펼친 항목은 닫습니다.
+    setViewMode(mode);
   };
 
   return (
@@ -50,17 +62,56 @@ export function Projects({
         </div>
 
         {topRepos.length > 0 && (
-          <div className="repo-list" ref={listRef}>
-            {topRepos.map((repo) => (
-              <RepoCard
-                key={repo.id}
-                repo={repo}
-                open={openId === repo.id}
-                onToggle={() => toggleCard(repo.id)}
-              />
-            ))}
+          <div className="view-toggle-bar" data-reveal>
+            <div className="view-toggle" role="tablist" aria-label="프로젝트 보기 방식">
+              <button
+                type="button"
+                role="tab"
+                aria-selected={viewMode === 'card'}
+                className={`view-toggle-btn${viewMode === 'card' ? ' is-active' : ''}`}
+                onClick={() => switchView('card')}
+              >
+                <GridIcon size={15} />
+                카드형
+              </button>
+              <button
+                type="button"
+                role="tab"
+                aria-selected={viewMode === 'list'}
+                className={`view-toggle-btn${viewMode === 'list' ? ' is-active' : ''}`}
+                onClick={() => switchView('list')}
+              >
+                <ListIcon size={15} />
+                리스트형
+              </button>
+            </div>
           </div>
         )}
+
+        {topRepos.length > 0 &&
+          (viewMode === 'card' ? (
+            <div className="repo-list" ref={listRef}>
+              {topRepos.map((repo) => (
+                <RepoCard
+                  key={repo.id}
+                  repo={repo}
+                  open={openId === repo.id}
+                  onToggle={() => toggleCard(repo.id)}
+                />
+              ))}
+            </div>
+          ) : (
+            <div className="repo-rows" ref={listRef}>
+              {topRepos.map((repo) => (
+                <RepoListItem
+                  key={repo.id}
+                  repo={repo}
+                  open={openId === repo.id}
+                  onToggle={() => toggleCard(repo.id)}
+                />
+              ))}
+            </div>
+          ))}
 
         {showSkeleton && (
           <div className="repo-skeleton-grid">

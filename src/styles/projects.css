@@ -182,9 +182,10 @@
   font-size: 12px;
   font-weight: 600;
   letter-spacing: 0.01em;
-  color: #fff;
-  background: var(--accent);
-  border: 1px solid var(--accent);
+  /* 흰색 바탕 · 짙은 남색 테두리/글씨 (아웃라인형) */
+  color: #1e3a8a;
+  background: #fff;
+  border: 1px solid #1e3a8a;
   padding: 5px 11px;
   border-radius: 999px;
 }
@@ -245,7 +246,8 @@
   transition: transform 0.6s var(--ease-smooth);
 }
 
-.repo.is-open .repo-chevron {
+.repo.is-open .repo-chevron,
+.repo-row.is-open .repo-chevron {
   transform: rotate(180deg);
 }
 
@@ -257,7 +259,8 @@
   transition: grid-template-rows 0.55s var(--ease-smooth, cubic-bezier(0.4, 0, 0.2, 1));
 }
 
-.repo.is-open .repo-readme-wrap {
+.repo.is-open .repo-readme-wrap,
+.repo-row.is-open .repo-readme-wrap {
   grid-template-rows: 1fr;
   /* 펼칠 때: 카드 폭 FLIP(0.65s·이즈인아웃)과 같은 곡선·타이밍으로 느긋하게 함께 안착 */
   transition: grid-template-rows 0.65s var(--ease-smooth);
@@ -278,19 +281,28 @@
   transition: opacity 0.5s var(--ease-smooth), transform 0.6s var(--ease-smooth);
 }
 
-.repo.is-open .repo-readme {
+.repo.is-open .repo-readme,
+.repo-row.is-open .repo-readme {
   opacity: 1;
   transform: translateY(0);
   /* 공간이 먼저 열리기 시작한 뒤 내용이 뒤따라 떠오르게 하는 미세한 딜레이 */
   transition-delay: 0.12s;
 }
 
+/* 리스트형은 카드 .repo-body 패딩이 없으므로 README에 좌우 여백을 직접 줍니다. */
+.repo-row .repo-readme {
+  margin-top: 0;
+  padding: 18px 22px 20px;
+}
+
 /* 모션 최소화 선호 사용자에게는 애니메이션을 끕니다 */
 @media (prefers-reduced-motion: reduce) {
   .repo-readme-wrap,
   .repo.is-open .repo-readme-wrap,
+  .repo-row.is-open .repo-readme-wrap,
   .repo-readme,
   .repo.is-open .repo-readme,
+  .repo-row.is-open .repo-readme,
   .repo-chevron {
     transition: none;
   }
@@ -298,6 +310,135 @@
   .repo-readme {
     opacity: 1;
     transform: none;
+  }
+}
+
+/* ---- 보기 방식 토글 (카드형 / 리스트형) ---- */
+.view-toggle-bar {
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: 20px;
+}
+
+.view-toggle {
+  display: inline-flex;
+  gap: 4px;
+  padding: 4px;
+  background: var(--tile);
+  border: 1px solid var(--line);
+  border-radius: 12px;
+}
+
+.view-toggle-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--ink-faint);
+  background: transparent;
+  border: none;
+  padding: 8px 15px;
+  border-radius: 9px;
+  transition: background 0.2s var(--ease-smooth), color 0.2s var(--ease-smooth),
+    box-shadow 0.2s var(--ease-smooth);
+}
+
+.view-toggle-btn:hover {
+  color: var(--ink);
+}
+
+.view-toggle-btn.is-active {
+  color: var(--accent);
+  background: var(--surface);
+  box-shadow: 0 2px 8px -4px rgba(30, 41, 90, 0.35);
+}
+
+/* ---- 리스트형 ---- */
+.repo-rows {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.repo-row {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  overflow: hidden;
+  transition: box-shadow 0.25s, border-color 0.25s;
+}
+
+.repo-row:hover {
+  box-shadow: 0 18px 38px -28px rgba(30, 41, 90, 0.4);
+  border-color: #c7d2fe;
+}
+
+.repo-row.is-open {
+  box-shadow: 0 18px 38px -28px rgba(30, 41, 90, 0.4);
+  border-color: #c7d2fe;
+}
+
+.repo-row-head {
+  display: flex;
+  align-items: center;
+  gap: 14px 18px;
+  flex-wrap: wrap;
+  padding: 16px 20px;
+}
+
+.repo-row-name {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  text-decoration: none;
+  color: var(--ink);
+  font-weight: 700;
+  font-size: 17px;
+  letter-spacing: -0.02em;
+}
+
+.repo-row-name span {
+  word-break: break-all;
+}
+
+.repo-row-focus {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 7px;
+  /* 기술 태그를 우측 정렬해 README 버튼 바로 왼쪽에 붙입니다. */
+  margin-left: auto;
+  justify-content: flex-end;
+  flex: 0 1 auto;
+}
+
+.repo-row-toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  flex: none;
+  font-size: 13.5px;
+  font-weight: 600;
+  color: var(--accent);
+  background: var(--accent-soft);
+  border: 1px solid var(--accent-line);
+  padding: 9px 16px;
+  border-radius: 10px;
+  transition: transform 0.2s var(--ease-smooth), border-color 0.2s var(--ease-smooth);
+}
+
+.repo-row-toggle:hover {
+  border-color: var(--accent);
+}
+
+@media (max-width: 640px) {
+  .repo-row-focus {
+    flex-basis: 100%;
+    order: 3;
+  }
+
+  .repo-row-toggle {
+    margin-left: auto;
   }
 }
 
