@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import type { RepoView } from '../types';
 import { useFlipList } from '../hooks/useFlipList';
 import { RepoCard } from './RepoCard';
@@ -22,6 +23,14 @@ export function Projects({
   onRetry,
 }: ProjectsProps) {
   const { listRef, captureFlip } = useFlipList<HTMLDivElement>();
+  // 아코디언: 한 번에 하나의 카드만 펼칩니다. (열린 카드 id, 없으면 null)
+  const [openId, setOpenId] = useState<number | null>(null);
+
+  const toggleCard = (id: number) => {
+    // 레이아웃이 바뀌기 전 위치를 먼저 스냅샷해 FLIP으로 부드럽게 이동시킵니다.
+    captureFlip();
+    setOpenId((cur) => (cur === id ? null : id));
+  };
 
   return (
     <section id="projects" className="section-full projects">
@@ -43,7 +52,12 @@ export function Projects({
         {topRepos.length > 0 && (
           <div className="repo-list" ref={listRef}>
             {topRepos.map((repo) => (
-              <RepoCard key={repo.id} repo={repo} onBeforeToggle={captureFlip} />
+              <RepoCard
+                key={repo.id}
+                repo={repo}
+                open={openId === repo.id}
+                onToggle={() => toggleCard(repo.id)}
+              />
             ))}
           </div>
         )}

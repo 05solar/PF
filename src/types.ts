@@ -3,6 +3,8 @@ export type SiteConfig = {
   displayName: string;
   tagline: string;
   email: string;
+  // 링크드인 프로필 URL (비워두면 버튼이 표시되지 않습니다)
+  linkedinUrl: string;
   projectCount: number;
   // 항상 맨 앞에 노출할 저장소 이름 (fork여도 포함)
   pinnedRepos: string[];
@@ -10,6 +12,8 @@ export type SiteConfig = {
   excludedRepos: string[];
   // 저장소 이름 → 직접 작성한 소개 문구 (있으면 README 자동 요약 대신 사용)
   descriptions: Record<string, string>;
+  // 저장소 이름 → 핵심 기술 태그 (CV·RAG·MCP 등 "무엇이 중점인지"). 기술 스택과 별도로 노출합니다.
+  focus: Record<string, string[]>;
 };
 
 export type GithubUser = {
@@ -62,6 +66,8 @@ export type RepoView = {
   updatedText: string;
   // README/토픽/언어에서 추정한 사용 기술 스택
   stack: string[];
+  // 핵심 기술 태그 (CV·RAG·MCP 등). 기술 스택과 별도로 보여줍니다.
+  focus: string[];
   demoUrl: string | null;
   // README 안 상대경로 이미지를 절대 URL로 풀기 위한 기준 경로
   readmeBase: string;

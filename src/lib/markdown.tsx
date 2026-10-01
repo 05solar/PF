@@ -151,6 +151,14 @@ export function renderMarkdown(md: string, base = ''): ReactNode {
     })
     // <picture>/<source> 래퍼는 제거 (위에서 살린 <img> fallback만 사용)
     .replace(/<picture\b[^>]*>|<\/picture>|<source\b[^>]*>/gi, '')
+    // HTML <a href="...">text</a> 링크를 마크다운 링크로 변환해 클릭 가능하게 살립니다.
+    // (내부 <b> 등 태그는 제거하고, 링크된 이미지는 [![alt](src)](href) 형태로 유지)
+    .replace(/<a\b[^>]*\bhref\s*=\s*["']([^"']+)["'][^>]*>([\s\S]*?)<\/a>/gi, (_m, href, inner) => {
+      const text = String(inner)
+        .replace(/<[^>]+>/g, '')
+        .trim();
+      return text ? `[${text}](${href})` : '';
+    })
     .replace(/<\/?[a-z][^>]*>/gi, '');
   const lines = cleaned.split(/\r?\n/);
   const blocks: ReactNode[] = [];

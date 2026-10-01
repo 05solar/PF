@@ -1,8 +1,9 @@
 import { useCallback, useRef } from 'react';
 
 const FLIP_ID = 'flip';
-const DURATION = 600;
-/* theme.css의 --ease-smooth와 같은 곡선 — 급출발 없이 완만하게 가속·감속 */
+const DURATION = 650;
+/* theme.css의 --ease-smooth와 같은 이즈인아웃 곡선 — 급출발 없이 완만하게 시작·안착하는 차분한 움직임.
+   CSS의 펼침(.repo-readme-wrap)·내용 등장과 같은 곡선/타이밍이라 폭·높이·내용이 함께 움직입니다. */
 const EASE = 'cubic-bezier(0.4, 0, 0.2, 1)';
 
 /**

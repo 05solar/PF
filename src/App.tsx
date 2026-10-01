@@ -101,6 +101,7 @@ function App() {
           language: r.language,
           topics: r.topics,
         }),
+        focus: siteConfig.focus[r.name] || [],
         demoUrl: home ? normalizeUrl(home) : null,
       };
     });
@@ -158,6 +159,7 @@ function App() {
       tagline,
       initial,
       githubUrl: `https://github.com/${login}`,
+      linkedinUrl: siteConfig.linkedinUrl.trim(),
       avatarUrl: `https://github.com/${login}.png?size=240`,
       bio,
       email,
@@ -201,6 +203,7 @@ function App() {
         tagline={view.tagline}
         login={login}
         githubUrl={view.githubUrl}
+        linkedinUrl={view.linkedinUrl}
         avatarUrl={view.avatarUrl}
       />
 
@@ -233,9 +236,7 @@ function App() {
         login={login}
         email={view.email}
         githubUrl={view.githubUrl}
-        blogUrl={view.blogUrl}
-        blogLabel={view.blogLabel}
-        blogText={view.blogText}
+        linkedinUrl={view.linkedinUrl}
       />
 
       <Footer name={view.name} login={login} />

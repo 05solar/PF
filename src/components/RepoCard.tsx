@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef } from 'react';
 import type { KeyboardEvent, MouseEvent } from 'react';
 import type { RepoView } from '../types';
 import { renderMarkdown } from '../lib/markdown';
@@ -6,11 +6,12 @@ import { BookIcon, ChevronIcon, ExternalIcon } from './icons';
 
 type RepoCardProps = {
   repo: RepoView;
-  onBeforeToggle?: () => void;
+  // 아코디언: 열림 상태는 부모가 관리합니다 (항상 하나만 펼쳐지도록).
+  open: boolean;
+  onToggle: () => void;
 };
 
-export function RepoCard({ repo, onBeforeToggle }: RepoCardProps) {
-  const [open, setOpen] = useState(false);
+export function RepoCard({ repo, open, onToggle }: RepoCardProps) {
   const cardRef = useRef<HTMLElement | null>(null);
 
   // 카드를 펼치면 (그리드 재배치로 아래 행에 내려갈 수 있으므로) 카드 상단으로 자동 스크롤
@@ -33,17 +34,12 @@ export function RepoCard({ repo, onBeforeToggle }: RepoCardProps) {
     return () => cancelAnimationFrame(frame);
   }, [open]);
 
-  const toggle = () => {
-    // 레이아웃이 바뀌기 전 위치를 부모가 스냅샷할 수 있게 먼저 알립니다. (FLIP)
-    onBeforeToggle?.();
-    setOpen((v) => !v);
-  };
   // 카드 안의 링크를 누를 때는 카드가 접히지 않도록 전파를 막습니다.
   const stop = (e: MouseEvent) => e.stopPropagation();
   const onKeyDown = (e: KeyboardEvent<HTMLElement>) => {
     if (e.key === 'Enter' || e.key === ' ') {
       e.preventDefault();
-      toggle();
+      onToggle();
     }
   };
 
@@ -54,10 +50,10 @@ export function RepoCard({ repo, onBeforeToggle }: RepoCardProps) {
       role="button"
       tabIndex={0}
       aria-expanded={open}
-      onClick={toggle}
+      onClick={onToggle}
       onKeyDown={onKeyDown}
     >
-      <div className="repo-accent" style={{ background: repo.langColor }} />
+      <div className="repo-accent" />
       <div className="repo-body">
         {repo.image && (
           <div className="repo-cover">
@@ -87,6 +83,16 @@ export function RepoCard({ repo, onBeforeToggle }: RepoCardProps) {
 
         <div className="repo-eyebrow">프로젝트 소개</div>
         <p className="repo-desc">{repo.preview}</p>
+
+        {repo.focus.length > 0 && (
+          <div className="repo-focus">
+            {repo.focus.map((f) => (
+              <span key={f} className="repo-focus-chip">
+                {f}
+              </span>
+            ))}
+          </div>
+        )}
 
         {repo.stack.length > 0 && (
           <div className="repo-stack-section">

@@ -1,22 +1,18 @@
-import { GithubIcon, GlobeIcon, MailIcon } from './icons';
+import { GithubIcon, LinkedinIcon, MailIcon } from './icons';
 
 type ContactProps = {
   login: string;
   email: string;
   githubUrl: string;
-  blogUrl: string;
-  blogLabel: string;
-  blogText: string;
+  linkedinUrl: string;
 };
 
-export function Contact({
-  login,
-  email,
-  githubUrl,
-  blogUrl,
-  blogLabel,
-  blogText,
-}: ContactProps) {
+export function Contact({ login, email, githubUrl, linkedinUrl }: ContactProps) {
+  // 표시용 텍스트: 프로토콜/www/끝 슬래시를 떼어 읽기 좋게
+  const linkedinText = linkedinUrl
+    .replace(/^https?:\/\/(www\.)?/, '')
+    .replace(/\/$/, '');
+
   return (
     <section id="contact" className="section-full contact">
       <div className="contact-inner">
@@ -39,10 +35,10 @@ export function Contact({
             <span className="contact-card-label">Email</span>
             <span className="contact-card-val">{email}</span>
           </a>
-          <a className="contact-card" href={blogUrl} target="_blank" rel="noopener noreferrer">
-            <GlobeIcon size={24} />
-            <span className="contact-card-label">{blogLabel}</span>
-            <span className="contact-card-val">{blogText}</span>
+          <a className="contact-card" href={linkedinUrl} target="_blank" rel="noopener noreferrer">
+            <LinkedinIcon size={24} />
+            <span className="contact-card-label">LinkedIn</span>
+            <span className="contact-card-val">{linkedinText}</span>
           </a>
         </div>
       </div>

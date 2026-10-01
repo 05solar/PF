@@ -1,14 +1,15 @@
-import { GithubIcon } from './icons';
+import { GithubIcon, LinkedinIcon } from './icons';
 
 type HeroProps = {
   name: string;
   tagline: string;
   login: string;
   githubUrl: string;
+  linkedinUrl: string;
   avatarUrl: string;
 };
 
-export function Hero({ name, tagline, login, githubUrl, avatarUrl }: HeroProps) {
+export function Hero({ name, tagline, login, githubUrl, linkedinUrl, avatarUrl }: HeroProps) {
   return (
     <header id="top" className="hero">
       <div className="hero-glow" aria-hidden="true" />
@@ -36,6 +37,17 @@ export function Hero({ name, tagline, login, githubUrl, avatarUrl }: HeroProps) 
               <GithubIcon size={18} />
               GitHub 프로필
             </a>
+            {linkedinUrl && (
+              <a
+                className="btn btn-linkedin"
+                href={linkedinUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <LinkedinIcon size={18} />
+                LinkedIn 프로필
+              </a>
+            )}
             <a className="btn btn-light" href="#projects">
               프로젝트 보기 →
             </a>

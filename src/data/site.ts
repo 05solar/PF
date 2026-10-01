@@ -9,39 +9,64 @@ export const siteConfig: SiteConfig = {
   tagline: '풀스택 개발자',
   // 비워두면 GitHub 이메일 → '사용자명@gmail.com' 순으로 대체됩니다.
   email: 'lotus05f@gmail.com',
+  // 링크드인 프로필 URL (비워두면 버튼이 표시되지 않습니다)
+  linkedinUrl: 'https://www.linkedin.com/in/solha-lee-7a9127409/',
   // 보여줄 대표 저장소 개수 (3 ~ 12)
-  projectCount: 8,
+  projectCount: 10,
   // 대표 포트폴리오: 지정한 순서 그대로 고정 노출합니다 (fork여도 포함).
   pinnedRepos: [
     'checkmiteV1',
+    'jbig',
     'GO',
     'MSA-restaurant',
     'By-Tomorrow',
+    'GLML',
+    'GMG',
     'RAG-agent',
     'MCP-shopbot',
     'OV-clonecoding',
     'Auto-PPT',
   ],
   // 프로젝트 카드에서 제외할 저장소
-  excludedRepos: ['my-letter-site', 'PF', 'p2', 'portfolio'],
-  // 각 프로젝트 README를 읽고 직접 정리한 소개 문구입니다.
-  // (README 첫 줄을 그대로 자르지 않고, 프로젝트 성격이 드러나도록 요약)
+  // GMG: 05solar에도 동명 레포가 있어 실시간 데이터가 fallback(팀 조직 링크·커버)을
+  //      덮어쓰며 커버가 사라지는 문제가 있어, 실시간 파이프라인에서만 제외합니다.
+  //      (pinnedRepos에 남아 있어 fallback 카드로는 계속 노출됩니다.)
+  excludedRepos: ['my-letter-site', 'PF', 'p2', 'portfolio', 'GMG'],
+  // 각 프로젝트를 직접 요약한 소개 문구입니다. (README를 그대로 긁지 않고, 요점만 간결하게)
   descriptions: {
     checkmiteV1:
-      'YOLO 기반 이미지·영상 분석으로 천적응애를 자동 탐지해 개체 수·밀도·활력도·증식률을 측정하는 로컬 실행형 사육 품질 관리 대시보드입니다. React·Express·FastAPI로 구성했습니다.',
-    GO: '브라우저에서 바로 즐기는 바둑(9×9·13×13)·오목(15×15) 게임입니다. 서버 없이 동작하며, 웹워커에서 바둑은 MCTS, 오목은 알파-베타 AI가 3단계 난이도로 대국합니다.',
+      'YOLO로 천적응애를 자동 탐지해 개체 수·밀도·활력도·증식률을 측정하는 사육 품질 관리 대시보드. 설치 없이 로컬에서 바로 실행됩니다.',
+    jbig:
+      '전북 외국인 근로자·유학생을 위한 AI 정착지원 플랫폼. 검토된 공식 문서만 RAG로 찾아 3개 국어로 답하고, 근로계약서의 위험 조항을 로컬 OCR로 걸러냅니다.',
+    GO: '브라우저에서 바로 두는 바둑·오목. 서버 없이 웹워커에서 MCTS·알파베타 AI가 3단계 난이도로 상대합니다.',
     'MSA-restaurant':
-      '고객·관리자용 식당 서비스를 마이크로서비스로 구현한 프로젝트입니다. Spring Boot 게이트웨이(JWT 인증)와 Auth·Menu·Order·Review 서비스, FastAPI AI 서비스를 Docker Compose 한 번으로 실행합니다.',
+      '식당 서비스를 마이크로서비스로 구현한 프로젝트. JWT 게이트웨이와 Auth·Menu·Order·Review 서비스를 Docker Compose 한 번으로 띄웁니다.',
     'By-Tomorrow':
-      '시험까지 남은 시간과 업로드한 강의자료를 AI가 분석해, 실제로 수행 가능한 벼락치기 학습 커리큘럼을 만들어 주는 서비스입니다. 로그인 없이 8자리 세션 코드로 접근하며, Spring Boot·Next.js·Gemini 구성으로 문서 분석부터 퀴즈·동적 커리큘럼 재조정까지 구현했습니다.',
+      '시험까지 남은 시간과 강의자료를 AI가 분석해 실현 가능한 벼락치기 커리큘럼을 짜 주는 서비스. 로그인 없이 8자리 코드로 접근합니다.',
+    GLML: '조건(지역·동행·시간·메뉴)을 분석해 맛집을 추천하는 AI 에이전트. 판단→도구 호출→검토의 ReAct 흐름을 화면에 그대로 시각화합니다.',
+    GMG: "'비선호'를 먼저 걸러 모두가 무난한 시간·장소·메뉴를 찾아 주는 모임 약속 서비스. 카카오맵으로 장소를 함께 고릅니다.",
     'RAG-agent':
-      'PDF를 업로드해 문서 내용을 질문하는 RAG 챗봇에, 졸업 요건 상담·도서 추천·교내 시설 안내 등 SQLite DB 기반 에이전트 탭을 더한 실습 프로젝트입니다. 답변 LLM과 평가 LLM 결과를 함께 보여줍니다.',
+      'PDF를 올려 내용을 묻는 RAG 챗봇에 졸업요건·도서추천·시설안내 에이전트를 더한 프로젝트. 답변 LLM과 평가 LLM 결과를 나란히 보여줍니다.',
     'MCP-shopbot':
-      '상품 데이터베이스를 MCP(Model Context Protocol)로 연동한 한국어 AI 쇼핑 도우미입니다. FastAPI·React 구성으로, OpenAI Tool Calling을 통해 상품 검색·상세 조회·재고 확인을 처리합니다.',
+      '상품 DB를 MCP로 연동한 한국어 쇼핑 도우미. Tool Calling으로 상품 검색·상세 조회·재고 확인을 처리합니다.',
     'OV-clonecoding':
-      '올리브영 메인 페이지를 React·Vite로 구현한 클론 코딩 과제입니다. 카테고리 드로어, 자동 슬라이드 캐러셀, 상품 상세 라우팅, 반응형 레이아웃까지 실제 커머스 UI 흐름을 재현했습니다.',
+      '올리브영 메인을 React로 구현한 클론 코딩. 카테고리 드로어·자동 캐러셀·상품 라우팅·반응형까지 커머스 UI 흐름을 재현했습니다.',
     'Auto-PPT':
-      '문서·텍스트를 넣으면 편집 가능한 네이티브 PowerPoint(.pptx)를 자동 생성하는 로컬 웹앱입니다. API 키 없이 로그인된 Claude Code·Codex CLI를 웹에서 구동하며, 스타일별 디자인 규약(폰트 임베드·레이아웃 규칙)을 후처리로 강제 적용합니다.',
+      '문서를 넣으면 편집 가능한 PowerPoint(.pptx)를 자동 생성하는 로컬 웹앱. API 키 없이 로그인된 Claude Code·Codex CLI를 웹에서 구동합니다.',
+  },
+  // 프로젝트별 "핵심 기술" 태그 — 무엇이 중점인지 (기술 스택과 별도).
+  focus: {
+    checkmiteV1: ['CV', 'YOLO', 'Object Detection'],
+    jbig: ['RAG', 'LLM', 'OCR', '다국어'],
+    GO: ['Game AI', 'MCTS', 'Alpha-Beta'],
+    'MSA-restaurant': ['MSA', 'JWT Auth', 'Docker'],
+    'By-Tomorrow': ['LLM', '문서 분석'],
+    GLML: ['AI Agent', 'ReAct', 'Tool Calling'],
+    GMG: ['추천', '지도 API'],
+    'RAG-agent': ['RAG', 'AI Agent', 'LLM'],
+    'MCP-shopbot': ['MCP', 'Tool Calling', 'LLM'],
+    'OV-clonecoding': ['Frontend', '반응형 UI'],
+    'Auto-PPT': ['LLM', 'CLI 연동', '문서 자동화'],
   },
 };
 
