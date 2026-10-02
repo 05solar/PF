@@ -54,21 +54,75 @@ export const siteConfig: SiteConfig = {
     'Auto-PPT':
       '문서를 넣으면 편집 가능한 PowerPoint(.pptx)를 자동 생성하는 로컬 웹앱. API 키 없이 로그인된 Claude Code·Codex CLI를 웹에서 구동합니다.',
   },
-  // 프로젝트별 "핵심 기술" 태그 — 무엇이 중점인지 (기술 스택과 별도).
+  // 프로젝트별 "핵심 기술" 배지 — [분야, 활용] 쌍. 왼쪽은 분야, 오른쪽은 사용 기술/활용명.
   focus: {
-    checkmiteV1: ['CV', 'YOLO', 'Object Detection'],
-    jbig: ['RAG', 'LLM', 'OCR', '다국어'],
-    GO: ['Game AI', 'MCTS', 'Alpha-Beta'],
-    'MSA-restaurant': ['MSA', 'JWT Auth', 'Docker'],
-    'By-Tomorrow': ['LLM', '문서 분석'],
-    GLML: ['AI Agent', 'ReAct', 'Tool Calling'],
-    GMG: ['추천', '지도 API'],
-    'RAG-agent': ['RAG', 'AI Agent', 'LLM'],
-    'MCP-shopbot': ['MCP', 'Tool Calling', 'LLM'],
-    'OV-clonecoding': ['Frontend', '반응형 UI'],
-    'Auto-PPT': ['LLM', 'CLI 연동', '문서 자동화'],
+    checkmiteV1: [['CV', 'YOLO Object Detection']],
+    jbig: [
+      ['RAG', '공식문서 검색'],
+      ['LLM', '다국어 챗봇'],
+      ['OCR', '서류 분석'],
+    ],
+    GO: [
+      ['Board Game', '바둑 · 오목'],
+      ['AI', 'MCTS · Alpha-Beta'],
+    ],
+    'MSA-restaurant': [
+      ['MSA', 'Spring Cloud Gateway'],
+      ['Auth', 'JWT'],
+      ['Infra', 'Docker Compose'],
+    ],
+    'By-Tomorrow': [
+      ['LLM', 'Gemini'],
+      ['AI', '문서 분석'],
+    ],
+    GLML: [
+      ['AI Agent', 'ReAct'],
+      ['LLM', 'Tool Calling'],
+    ],
+    GMG: [
+      ['추천', '비선호 필터'],
+      ['Map', 'Kakao API'],
+    ],
+    'RAG-agent': [
+      ['RAG', 'PDF QA'],
+      ['AI Agent', 'DB 상담'],
+    ],
+    'MCP-shopbot': [
+      ['MCP', 'Tool Calling'],
+      ['LLM', '쇼핑 도우미'],
+    ],
+    'OV-clonecoding': [
+      ['Frontend', 'React'],
+      ['UI', '반응형'],
+    ],
+    'Auto-PPT': [
+      ['LLM', '슬라이드 생성'],
+      ['CLI', 'Claude Code · Codex'],
+    ],
   },
 };
+
+// 핵심 기술 배지의 오른쪽(활용) 포인트 색상 — 배지 순서대로 순환 적용합니다.
+// 빨강·주황·황금·초록·틸·파랑·인디고·보라·마젠타로 스펙트럼 전반을 고르게 사용 (흰 글씨 대비 확보).
+export const focusColors = [
+  '#C0392B',
+  '#C2410C',
+  '#A16207',
+  '#15803D',
+  '#0F766E',
+  '#2563EB',
+  '#4F46E5',
+  '#8E44AD',
+  '#C2185B',
+];
+
+// 프로젝트마다 시작 색을 다르게(이름 기반) + 배지마다 다른 색이 되도록 고릅니다.
+// → 카드 안에서도, 카드끼리도 색이 고르게 다양해집니다.
+export function focusColor(key: string, index: number): string {
+  let h = 0;
+  for (let c = 0; c < key.length; c++) h = (h * 31 + key.charCodeAt(c)) >>> 0;
+  return focusColors[(h + index) % focusColors.length];
+}
 
 // 기술 스택 카드. 실제 사용하는 도구로 자유롭게 수정하세요.
 export const techStack: { title: string; color: string; items: string[] }[] = [

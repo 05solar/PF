@@ -177,18 +177,33 @@
   margin-bottom: 18px;
 }
 
-.repo-focus-chip {
-  font-family: var(--font-mono);
-  font-size: 13px;
-  font-weight: 800;
-  letter-spacing: 0.01em;
-  /* 짙은 남색 바탕 · 흰 글씨 (테두리 없음) */
-  color: #fff;
-  background: #1e3a8a;
-  border: none;
-  padding: 6px 12px;
-  border-radius: 999px;
+/* 2색 배지: [분야 | 활용]. 왼쪽 짙은 회색, 오른쪽 포인트 색. 사이는 간격 없이 붙이고
+   바깥 모서리만 둥글게, 가운데 경계는 직선. 그림자·그라데이션 없는 단색. */
+.repo-focus-badge {
+  display: inline-flex;
+  align-items: stretch;
+  font-family: var(--font-main);
+  font-size: 12px;
+  font-weight: 600;
+  line-height: 1;
+  border-radius: 7px;
+  overflow: hidden; /* 안쪽 경계는 직선, 바깥 모서리만 둥글게 */
 }
+
+.repo-focus-key,
+.repo-focus-val {
+  display: inline-flex;
+  align-items: center; /* 텍스트 수직 중앙 */
+  padding: 6px 12px; /* 좌우 여백 충분히 */
+  color: #fff;
+  white-space: nowrap;
+}
+
+.repo-focus-key {
+  background: #717f94; /* 옅은 회색 */
+}
+
+/* .repo-focus-val 의 배경색은 배지마다 인라인 스타일(focusColors)로 지정 */
 
 .repo-stack-section {
   margin-bottom: 18px;

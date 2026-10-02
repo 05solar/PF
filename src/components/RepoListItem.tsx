@@ -1,6 +1,7 @@
 import type { MouseEvent } from 'react';
 import type { RepoView } from '../types';
 import { renderMarkdown } from '../lib/markdown';
+import { focusColor } from '../data/site';
 import { BookIcon, ChevronIcon } from './icons';
 
 type RepoListItemProps = {
@@ -30,9 +31,15 @@ export function RepoListItem({ repo, open, onToggle }: RepoListItemProps) {
 
         {repo.focus.length > 0 && (
           <div className="repo-row-focus">
-            {repo.focus.map((f) => (
-              <span key={f} className="repo-focus-chip">
-                {f}
+            {repo.focus.map(([field, value], i) => (
+              <span key={`${field}-${value}`} className="repo-focus-badge">
+                <span className="repo-focus-key">{field}</span>
+                <span
+                  className="repo-focus-val"
+                  style={{ background: focusColor(repo.name, i) }}
+                >
+                  {value}
+                </span>
               </span>
             ))}
           </div>
