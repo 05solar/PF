@@ -102,8 +102,7 @@ export const siteConfig: SiteConfig = {
   },
 };
 
-// 핵심 기술 배지의 오른쪽(활용) 포인트 색상 — 배지 순서대로 순환 적용합니다.
-// 빨강·주황·황금·초록·틸·파랑·인디고·보라·마젠타로 스펙트럼 전반을 고르게 사용 (흰 글씨 대비 확보).
+// 핵심 기술 배지의 오른쪽(활용) 포인트 색상 팔레트 (서로 다른 색 17종).
 export const focusColors = [
   '#C0392B',
   '#C2410C',
@@ -114,14 +113,48 @@ export const focusColors = [
   '#4F46E5',
   '#8E44AD',
   '#C2185B',
+  '#5C6F2B',
+  '#3B4953',
+  '#FF84BA',
+  '#FF6B35',
+  '#744577',
+  '#A98B76',
+  '#3291B6',
+  '#B77466',
 ];
 
-// 프로젝트마다 시작 색을 다르게(이름 기반) + 배지마다 다른 색이 되도록 고릅니다.
-// → 카드 안에서도, 카드끼리도 색이 고르게 다양해집니다.
-export function focusColor(key: string, index: number): string {
-  let h = 0;
-  for (let c = 0; c < key.length; c++) h = (h * 31 + key.charCodeAt(c)) >>> 0;
-  return focusColors[(h + index) % focusColors.length];
+// 모든 분야를 "처음 등장한 순서"로 모아 팔레트 색을 하나씩 겹치지 않게 배정합니다.
+// → 서로 다른 분야는 서로 다른 색을 쓰고, 같은 분야(예: 'LLM')는 어디서나 같은 색을 씁니다.
+const fieldColorMap: Record<string, string> = (() => {
+  const map: Record<string, string> = {};
+  let idx = 0;
+  for (const badges of Object.values(siteConfig.focus)) {
+    for (const [field] of badges) {
+      if (!(field in map)) {
+        map[field] = focusColors[idx % focusColors.length];
+        idx += 1;
+      }
+    }
+  }
+  return map;
+})();
+
+export function focusColor(field: string): string {
+  return fieldColorMap[field] ?? focusColors[0];
+}
+
+// 배경색 위에서 더 잘 보이는 글씨색(흰/검정)을 WCAG 대비로 골라 줍니다.
+// → 밝은 포인트 색(핑크·주황 등)에는 어두운 글씨가 들어갑니다.
+export function readableText(hex: string): string {
+  const h = hex.replace('#', '');
+  const toLin = (v: number) => (v <= 0.03928 ? v / 12.92 : ((v + 0.055) / 1.055) ** 2.4);
+  const r = toLin(parseInt(h.slice(0, 2), 16) / 255);
+  const g = toLin(parseInt(h.slice(2, 4), 16) / 255);
+  const b = toLin(parseInt(h.slice(4, 6), 16) / 255);
+  const L = 0.2126 * r + 0.7152 * g + 0.0722 * b;
+  const contrastWhite = 1.05 / (L + 0.05);
+  const contrastBlack = (L + 0.05) / 0.05;
+  return contrastWhite >= contrastBlack ? '#fff' : '#1f2937';
 }
 
 // 기술 스택 카드. 실제 사용하는 도구로 자유롭게 수정하세요.

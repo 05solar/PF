@@ -183,7 +183,7 @@
   display: inline-flex;
   align-items: stretch;
   font-family: var(--font-main);
-  font-size: 12px;
+  font-size: 11px;
   font-weight: 600;
   line-height: 1;
   border-radius: 7px;
@@ -200,7 +200,12 @@
 }
 
 .repo-focus-key {
+  gap: 5px; /* 아이콘과 분야명 간격 */
   background: #717f94; /* 옅은 회색 */
+}
+
+.repo-focus-ico {
+  flex: none;
 }
 
 /* .repo-focus-val 의 배경색은 배지마다 인라인 스타일(focusColors)로 지정 */
