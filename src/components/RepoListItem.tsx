@@ -19,16 +19,24 @@ export function RepoListItem({ repo, open, onToggle }: RepoListItemProps) {
   return (
     <div className={`repo-row${open ? ' is-open' : ''}`}>
       <div className="repo-row-head">
-        <a
-          className="repo-row-name"
-          href={repo.url}
-          target="_blank"
-          rel="noopener noreferrer"
-          onClick={stop}
-        >
-          <BookIcon size={18} className="repo-name-icon" />
-          <span>{repo.name}</span>
-        </a>
+        {repo.url ? (
+          <a
+            className="repo-row-name"
+            href={repo.url}
+            target="_blank"
+            rel="noopener noreferrer"
+            onClick={stop}
+          >
+            <BookIcon size={18} className="repo-name-icon" />
+            <span>{repo.name}</span>
+          </a>
+        ) : (
+          // 프라이빗 프로젝트: 링크 없이 제목만 표시
+          <span className="repo-row-name">
+            <BookIcon size={18} className="repo-name-icon" />
+            <span>{repo.name}</span>
+          </span>
+        )}
 
         {repo.focus.length > 0 && (
           <div className="repo-row-focus">

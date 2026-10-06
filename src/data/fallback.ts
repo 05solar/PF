@@ -5,6 +5,8 @@ import { siteConfig } from './site';
 import { bundledReadmes } from './readmes';
 // GMG는 다른 조직 저장소라, 무거운 원본(3.2MB) 대신 헤더만 잘라 최적화한 로컬 커버를 씁니다.
 import gmgCover from '../assets/gmg-cover.png';
+// edu-msa는 프라이빗 저장소라 GitHub 링크 없이 로컬 커버만 사용합니다.
+import eduMsaCover from '../assets/edu-msa-cover.png';
 
 // GitHub API 호출 한도(rate limit) 등으로 실시간 데이터를 못 받을 때 쓰는 저장본입니다.
 // 프로젝트 카드와 언어 사용 비율이 항상 보이도록 최소 정보를 담아 둡니다.
@@ -26,6 +28,8 @@ type FallbackDef = {
 const DEFS: FallbackDef[] = [
   { name: 'checkmiteV1', language: 'TypeScript', image: raw('checkmiteV1', 'docs/screenshot.png') },
   { name: 'jbig', language: 'Python', image: raw('jbig', 'docs/images/home.png') },
+  // 프라이빗 저장소 → url: '' (GitHub 링크·버튼을 숨깁니다)
+  { name: 'edu-msa', language: 'TypeScript', image: eduMsaCover, url: '' },
   {
     name: 'GO',
     language: 'TypeScript',
@@ -70,7 +74,8 @@ export const fallbackRepos: RepoView[] = DEFS.map((d, i) => {
   return {
     id: -1 - i, // 실시간 데이터와 겹치지 않도록 음수 id
     name: d.name,
-    url: d.url || `https://github.com/${login}/${d.name}`,
+    // url이 ''(빈 문자열)이면 그대로 둬 GitHub 링크를 숨깁니다. (undefined일 때만 기본 경로)
+    url: d.url ?? `https://github.com/${login}/${d.name}`,
     preview: desc || '프로젝트 소개는 GitHub 저장소에서 확인하세요.',
     readmeText: readme?.text || '',
     readmeBase: readme?.baseUrl || '',

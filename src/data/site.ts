@@ -12,11 +12,12 @@ export const siteConfig: SiteConfig = {
   // 링크드인 프로필 URL (비워두면 버튼이 표시되지 않습니다)
   linkedinUrl: 'https://www.linkedin.com/in/solha-lee-7a9127409/',
   // 보여줄 대표 저장소 개수 (3 ~ 12)
-  projectCount: 10,
+  projectCount: 11,
   // 대표 포트폴리오: 지정한 순서 그대로 고정 노출합니다 (fork여도 포함).
   pinnedRepos: [
     'checkmiteV1',
     'jbig',
+    'edu-msa',
     'GO',
     'MSA-restaurant',
     'By-Tomorrow',
@@ -31,13 +32,15 @@ export const siteConfig: SiteConfig = {
   // GMG: 05solar에도 동명 레포가 있어 실시간 데이터가 fallback(팀 조직 링크·커버)을
   //      덮어쓰며 커버가 사라지는 문제가 있어, 실시간 파이프라인에서만 제외합니다.
   //      (pinnedRepos에 남아 있어 fallback 카드로는 계속 노출됩니다.)
-  excludedRepos: ['my-letter-site', 'PF', 'p2', 'portfolio', 'GMG'],
+  excludedRepos: ['my-letter-site', 'PF', 'p2', 'portfolio', 'GMG', 'edu-msa'],
   // 각 프로젝트를 직접 요약한 소개 문구입니다. (README를 그대로 긁지 않고, 요점만 간결하게)
   descriptions: {
     checkmiteV1:
       'YOLO로 소형개체(천적응애)를 자동 분류·탐지하여 개체 수·밀도·활력도·증식률을 측정합니다.',
     jbig:
       '전북 외국인 근로자·유학생을 대상으로 공식문서를 기반으로 체류·행정과 노동 문제에 대한 챗봇 서비스와 함께, 서류를 넣으면 불법 요소 탐색과 서류 설명을 제공합니다.',
+    'edu-msa':
+      '교육청 직원이 단기 교육에서 만든 프로그램을 내부 저장소에 올리면, 표준 규격만 지키면 자동으로 하나의 MSA 서비스로 띄워 바로 쓸 수 있게 하는 사내 포털입니다. React·Spring Boot 3·MariaDB·Kubernetes로 구성한 단독 프로젝트입니다.',
     GO: '브라우저에서 바로 두는 바둑·오목. 서버 없이 웹워커에서 MCTS·알파베타 AI가 3단계 난이도로 상대합니다.',
     'MSA-restaurant':
       '식당 서비스를 마이크로서비스로 구현한 프로젝트. JWT 게이트웨이와 Auth·Menu·Order·Review 서비스를 Docker Compose 한 번으로 띄웁니다.',
@@ -98,6 +101,12 @@ export const siteConfig: SiteConfig = {
     'Auto-PPT': [
       ['LLM', '슬라이드 생성'],
       ['CLI', 'Claude Code · Codex'],
+    ],
+    // edu-msa는 focus 맵 맨 뒤에 둡니다. (MSA·Infra·Auth는 이미 앞에서 색이 정해져 재사용)
+    'edu-msa': [
+      ['MSA', '서비스 자동 배포'],
+      ['Infra', 'Kubernetes'],
+      ['Auth', 'JWT'],
     ],
   },
 };

@@ -63,16 +63,24 @@ export function RepoCard({ repo, open, onToggle }: RepoCardProps) {
           </div>
         )}
         <div className="repo-top">
-          <a
-            className="repo-name"
-            href={repo.url}
-            target="_blank"
-            rel="noopener noreferrer"
-            onClick={stop}
-          >
-            <BookIcon size={19} className="repo-name-icon" />
-            <span>{repo.name}</span>
-          </a>
+          {repo.url ? (
+            <a
+              className="repo-name"
+              href={repo.url}
+              target="_blank"
+              rel="noopener noreferrer"
+              onClick={stop}
+            >
+              <BookIcon size={19} className="repo-name-icon" />
+              <span>{repo.name}</span>
+            </a>
+          ) : (
+            // 프라이빗 프로젝트: 링크 없이 제목만 표시
+            <span className="repo-name">
+              <BookIcon size={19} className="repo-name-icon" />
+              <span>{repo.name}</span>
+            </span>
+          )}
           <div className="repo-stats">
             <span className="repo-stat">
               <span className="repo-lang-dot" style={{ background: repo.langColor }} />
@@ -135,15 +143,17 @@ export function RepoCard({ repo, open, onToggle }: RepoCardProps) {
               데모 사이트
             </a>
           )}
-          <a
-            className="btn btn-soft"
-            href={repo.url}
-            target="_blank"
-            rel="noopener noreferrer"
-            onClick={stop}
-          >
-            깃허브 바로가기 →
-          </a>
+          {repo.url && (
+            <a
+              className="btn btn-soft"
+              href={repo.url}
+              target="_blank"
+              rel="noopener noreferrer"
+              onClick={stop}
+            >
+              깃허브 바로가기 →
+            </a>
+          )}
           <span className="repo-updated">{repo.updatedText}</span>
         </div>
 
