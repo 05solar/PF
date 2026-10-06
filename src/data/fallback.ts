@@ -7,6 +7,7 @@ import { bundledReadmes } from './readmes';
 import gmgCover from '../assets/gmg-cover.png';
 // edu-msa는 프라이빗 저장소라 GitHub 링크 없이 로컬 커버만 사용합니다.
 import eduMsaCover from '../assets/edu-msa-cover.png';
+import ovClonecodingCover from '../assets/ov-clonecoding-cover.png';
 
 // GitHub API 호출 한도(rate limit) 등으로 실시간 데이터를 못 받을 때 쓰는 저장본입니다.
 // 프로젝트 카드와 언어 사용 비율이 항상 보이도록 최소 정보를 담아 둡니다.
@@ -59,7 +60,7 @@ const DEFS: FallbackDef[] = [
     image: raw('RAG-agent', 'docs/assets/readme-preview.png'),
   },
   { name: 'MCP-shopbot', language: 'Python', image: raw('MCP-shopbot', 'assets/image.png') },
-  { name: 'OV-clonecoding', language: 'JavaScript', image: null },
+  { name: 'OV-clonecoding', language: 'JavaScript', image: ovClonecodingCover },
   {
     name: 'Auto-PPT',
     language: 'Python',

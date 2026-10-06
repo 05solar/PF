@@ -15,6 +15,7 @@ import { fallbackLangStats, fallbackRepos } from './data/fallback';
 import { buildWeeks, fmtUpdated, langColor, normalizeUrl } from './lib/github';
 import { firstReadmeImage, readmePreview } from './lib/markdown';
 import { detectStack } from './lib/stack';
+import ovClonecodingCover from './assets/ov-clonecoding-cover.png';
 import type { GithubRepo, LangStat, RepoView } from './types';
 
 function App() {
@@ -82,7 +83,9 @@ function App() {
         readmeText: text,
         readmeBase: entry?.baseUrl || '',
         // 커버 이미지는 README 안의 첫 이미지에서만 가져옵니다.
-        image: firstReadmeImage(text, entry?.baseUrl || ''),
+        image:
+          firstReadmeImage(text, entry?.baseUrl || '') ||
+          (r.name === 'OV-clonecoding' ? ovClonecodingCover : null),
         // 직접 작성한 소개 문구가 있으면 우선 사용하고, 없으면 README 자동 요약으로 대체합니다.
         preview:
           siteConfig.descriptions[r.name] ||
