@@ -4,6 +4,7 @@ import { Hero } from './components/Hero';
 import { TechStack } from './components/TechStack';
 import { Projects } from './components/Projects';
 import { Activity } from './components/Activity';
+import { Achievements } from './components/Achievements';
 import { Contact } from './components/Contact';
 import { Footer } from './components/Footer';
 import { ScrollTop } from './components/ScrollTop';
@@ -224,6 +225,8 @@ function App() {
         showSkeleton={view.showContribSkeleton}
         showError={view.showContribError}
       />
+
+      <Achievements />
 
       <Projects
         topRepos={view.topRepos}

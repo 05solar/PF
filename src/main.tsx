@@ -8,6 +8,7 @@ import './styles/hero.css';
 import './styles/tech-stack.css';
 import './styles/projects.css';
 import './styles/activity.css';
+import './styles/achievements.css';
 import './styles/contact.css';
 import './styles/footer.css';
 import './styles/scroll-top.css';

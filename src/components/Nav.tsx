@@ -18,6 +18,9 @@ export function Nav({ name, initial }: NavProps) {
           <a href="#activity" className="nav-link">
             활동
           </a>
+          <a href="#achievements" className="nav-link">
+            수상 · 경력
+          </a>
           <a href="#projects" className="nav-link">
             프로젝트
           </a>

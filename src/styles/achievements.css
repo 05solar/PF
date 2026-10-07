@@ -1,0 +1,131 @@
+.achievements .section-head {
+  margin-bottom: 22px;
+}
+
+.achievements-stack {
+  display: grid;
+  gap: 14px;
+}
+
+.achievements-panel {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: 14px;
+}
+
+.achievements-panel-head {
+  padding: 16px 22px;
+  border-bottom: 1px solid var(--line-soft);
+}
+
+.achievements-heading {
+  margin: 0;
+  color: var(--ink);
+  font-size: 16px;
+  font-weight: 700;
+}
+
+.achievements-list {
+  margin: 0;
+  padding: 0 22px;
+  list-style: none;
+}
+
+.achievement-item,
+.experience-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  padding: 13px 0;
+}
+
+.achievement-item + .achievement-item {
+  border-top: 1px solid var(--line-soft);
+}
+
+.achievement-content,
+.experience-content {
+  min-width: 0;
+}
+
+.achievement-content h4,
+.experience-content h4 {
+  margin: 0;
+  color: var(--ink);
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 1.5;
+}
+
+.achievement-medal {
+  margin-left: 2px;
+  font-size: 14px;
+  font-weight: 400;
+  white-space: nowrap;
+}
+
+.achievement-meta,
+.achievement-description {
+  margin: 2px 0 0;
+  color: var(--ink-faint);
+  font-size: 12px;
+  line-height: 1.5;
+}
+
+.achievement-details {
+  display: flex;
+  align-items: flex-end;
+  flex-direction: column;
+  gap: 2px;
+  flex: none;
+  text-align: right;
+}
+
+.achievement-prize {
+  color: var(--ink);
+  font-size: 13px;
+  font-weight: 800;
+}
+
+.achievement-honor {
+  color: var(--ink-mute);
+  font-size: 12px;
+  font-weight: 500;
+}
+
+.achievement-period {
+  color: var(--ink-dim);
+  font-size: 11px;
+  white-space: nowrap;
+}
+
+.experience-item {
+  padding: 15px 22px;
+}
+
+@media (max-width: 640px) {
+  .achievements-panel-head {
+    padding: 14px 16px;
+  }
+
+  .achievements-list {
+    padding: 0 16px;
+  }
+
+  .achievement-item,
+  .experience-item {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 5px;
+  }
+
+  .achievement-details {
+    align-items: flex-start;
+    text-align: left;
+  }
+
+  .experience-item {
+    padding: 13px 16px;
+  }
+}
