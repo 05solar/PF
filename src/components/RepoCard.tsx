@@ -1,4 +1,4 @@
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import type { KeyboardEvent, MouseEvent } from 'react';
 import type { RepoView } from '../types';
 import { renderMarkdown } from '../lib/markdown';
@@ -15,6 +15,10 @@ type RepoCardProps = {
 
 export function RepoCard({ repo, open, onToggle }: RepoCardProps) {
   const cardRef = useRef<HTMLElement | null>(null);
+
+  // 원격 커버 이미지가 로드에 실패하면 깨진 아이콘 대신 커버 영역을 숨깁니다.
+  const [imgFailed, setImgFailed] = useState(false);
+  useEffect(() => setImgFailed(false), [repo.image]);
 
   // 카드를 펼치면 (그리드 재배치로 아래 행에 내려갈 수 있으므로) 카드 상단으로 자동 스크롤
   useEffect(() => {
@@ -57,9 +61,14 @@ export function RepoCard({ repo, open, onToggle }: RepoCardProps) {
     >
       <div className="repo-accent" />
       <div className="repo-body">
-        {repo.image && (
+        {repo.image && !imgFailed && (
           <div className="repo-cover">
-            <img src={repo.image} alt={`${repo.name} 미리보기`} loading="lazy" />
+            <img
+              src={repo.image}
+              alt={`${repo.name} 미리보기`}
+              loading="lazy"
+              onError={() => setImgFailed(true)}
+            />
           </div>
         )}
         <div className="repo-top">
