@@ -17,6 +17,7 @@ import { buildWeeks, fmtUpdated, langColor, normalizeUrl } from './lib/github';
 import { firstReadmeImage, readmePreview } from './lib/markdown';
 import { detectStack } from './lib/stack';
 import { localCovers } from './data/covers';
+import { fallbackContrib } from './data/contribFallback';
 import type { GithubRepo, LangStat, RepoView } from './types';
 
 function App() {
@@ -123,11 +124,13 @@ function App() {
       return { name: n, color: langColor(n), width: `${pct}%`, pctText: `${pct}%` };
     });
 
-    const contribTotal = contrib
-      ? (contrib.contributions || []).reduce((acc, d) => acc + d.count, 0)
+    // 기여 그래프: 실시간 데이터가 있으면 그걸 쓰고, API 실패 시 저장본으로 대체합니다.
+    const contribData = contrib ?? (contribError ? fallbackContrib : null);
+    const contribTotal = contribData
+      ? (contribData.contributions || []).reduce((acc, d) => acc + d.count, 0)
       : null;
     const statContrib = contribTotal != null ? contribTotal.toLocaleString() : '—';
-    const weeks = contrib ? buildWeeks(contrib.contributions || []) : [];
+    const weeks = contribData ? buildWeeks(contribData.contributions || []) : [];
 
     const bio = user?.bio || '// 빠르게 배우고, 끝까지 책임지는 개발자';
     const email = siteConfig.email.trim() || user?.email || `${login}@gmail.com`;
@@ -140,7 +143,7 @@ function App() {
     const blogLabel = blog ? 'Website' : user?.location ? 'Location' : 'Website';
 
     const reposReady = repos.length > 0;
-    const contribReady = !!contrib;
+    const contribReady = !!contribData;
 
     // 대표 프로젝트 카드는 pinnedRepos 순서대로 "항상" 노출합니다.
     // 각 저장소는 실시간 데이터가 준비되면 그걸 쓰고, 아직 없으면(로딩 중·한도 초과·
@@ -182,8 +185,9 @@ function App() {
       showLangSkeleton: langLoading && langStats.length === 0,
       showLangError: false,
       contribReady,
-      showContribSkeleton: !contribReady && !contribError,
-      showContribError: !contribReady && contribError,
+      // API 실패 시에도 저장본으로 채워지므로, 스켈레톤은 로딩 중에만 보입니다.
+      showContribSkeleton: !contribReady,
+      showContribError: false,
     };
   }, [
     user,
